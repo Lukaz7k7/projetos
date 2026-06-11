@@ -465,7 +465,7 @@ while resp != 0 :
         
         elif resp2 == 6 :
           print()
-          print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CONSULTA DE PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+          print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CONSULTA DE PEDIDO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
           print()
           print('1 ָ☾. listar todas')
           print('2 ָ☾. buscar por numero')
