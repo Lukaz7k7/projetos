@@ -1,26 +1,78 @@
 import os , time 
 from datetime import datetime
-suites = {
-  1 : ['premiun',69.0,'ocupado'],
-  2 : ['simplees', 24.0, 'ocupado'],
-  3 : ['luxo', 45.50 , 'livre']
-        }
-hospedagens = {
-  1 : [1, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ],
-  2 : [2, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ]
-}
+
+   # recuperando dados dos arquivos
+suites = {}
+try : 
+  arq_suites = open('suites.txt','rt', encoding="utf-8")
+  for linha in arq_suites : 
+    linha = linha.strip()
+    if linha :
+      dados = linha.split(',')
+      num = int(dados[0])
+      tipo = dados[1]
+      valor = float(dados[2])
+      status = dados[3]
+      suites[num] = [tipo, valor, status]
+  arq_suites.close()
+
+except : 
+  suites = {
+        1 : ['premiun',69.0,'ocupado'],
+        2 : ['simplees', 24.0, 'ocupado'],
+        3 : ['luxo', 45.50 , 'livre']
+  }
+  arq_suites = open('suites.txt','wt',encoding="utf-8")
+  for num, dados in suites.items() :
+      arq_suites.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+  arq_suites.close()
+
+hospedagens = {}
+try : 
+  arq_hospedagens = open('hospedagens.txt','rt',encoding="utf-8")
+  for linha in arq_hospedagens :
+    linha = linha.strip()
+    if linha: 
+      dados = linha.split(',')
+      num = int(dados[0])
+      suite = int(dados[1])
+      entrada = dados[2]
+      cpf = int(dados[3])
+      status = dados[4]
+      if dados[4] == 'fechado':
+        saida = dados[5]
+        valor_t = float(dados[6])
+        hospedagens[num] = [suite,entrada,cpf,status,saida,valor_t]
+      else:
+        hospedagens[num] = [suite,entrada,cpf,status]
+  arq_hospedagens.close
+
+except:
+  hospedagens = {
+    1 : [1, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ],
+    2 : [2, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ]
+  }
+  arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
+  for chave,dados in hospedagens.items() : 
+    if dados[3] == 'fechado' :
+      arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n')
+    else :
+      arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
+  arq_hospedagens.close()
+
 produtos = {
   1 : ['vinho', 20 , 50.0 ],
   2 : ['lubrificante', 15, 5.5],
   3 : ['camisinha', 30 , 5.5 ]
 }
-pedidos = {
+pedidos = { 
   1 : [1,2,1],
   2 : [1,1,4],
   3 : [2,1,4],
   4 : [2,1,4],
   5 : [2,1,4]
 }
+
 resp = ''
 while resp != 0 :
     os.system('cls')
@@ -245,13 +297,19 @@ while resp != 0 :
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE HOSPEDAGEM ✩₊˚.⋆☾⋆⁺₊✧')
             print()
-            for i in range(1,len(hospedagens)+1):
+            for chave, dados in hospedagens.items():
               print()
               print('☪-☪'*25)
               print()
-              print(f'hospedagem numero -> {i}')
-              for j in range(1,len(hospedagens[i])):
-                print(hospedagens[i][j])
+              print(f'hospedagem numero -> {chave}')
+              print()
+              print(f'SUITE -> {dados[0]}')
+              print(f'ENTRADA -> {dados[1]}')
+              print(f'CPF -> {dados[2]}')
+              print(f'STATUS -> {dados[3]}')
+              if dados[3] == 'fechado' :
+                print(f'SAÍDA -> {dados[4]}')
+                print(f'VALOR TOTAL -> {dados[5]}')
             print()
             print('☪-☪'*25)
             print()
@@ -262,10 +320,22 @@ while resp != 0 :
             print()
             num = int(input('digite o numero da hospedagem que deseja consultar : '))
             if num in hospedagens :
+              print()
+              print('☪-☪'*25)
+              print()
               print(f'hospedagem numero -> {num}')
-              for j in range(1,len(hospedagens[num])):
-                print(hospedagens[i][j])
-              input('tecle ENTER para continuar .....')
+              print()
+              print(f'SUITE -> {hospedagens[num][0]}')
+              print(f'ENTRADA -> {hospedagens[num][1]}')
+              print(f'CPF -> {hospedagens[num][2]}')
+              print(f'STATUS -> {hospedagens[num][3]}')
+              if hospedagens[num][3] == 'fechado' :
+                print(f'SAÍDA -> {hospedagens[num][4]}')
+                print(f'VALOR TOTAL -> {hospedagens[num][5]}')
+              print()
+              print('☪-☪'*25)
+              print()
+              input('tecle ENTER para continuar ....')
             else :
               print(f'suíte numero {num} não encontrada')
               input('pres ENTER para continuar....')
@@ -565,6 +635,21 @@ while resp != 0 :
       print('🕷           www.gnu.org/licenses/gpl.html            🕷')
       print()
       input('🕷  tecle ENTER para continuar....')
-      
+
 print()
 print('········· FIM DO PROGRAMA ·········')
+
+   # salvamento de dados   
+
+arq_suites = open('suites.txt','wt',encoding="utf-8")
+for num, dados in suites.items() :
+    arq_suites.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+arq_suites.close()
+
+arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
+for chave,dados in hospedagens.items() : 
+  if dados[3] == 'fechado' :
+    arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n')
+  else :
+    arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
+arq_hospedagens.close()
