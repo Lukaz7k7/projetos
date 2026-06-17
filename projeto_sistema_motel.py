@@ -36,11 +36,11 @@ try :
       dados = linha.split(',')
       num = int(dados[0])
       suite = int(dados[1])
-      entrada = dados[2]
+      entrada = datetime(dados[2])
       cpf = int(dados[3])
       status = dados[4]
       if dados[4] == 'fechado':
-        saida = dados[5]
+        saida = datetime(dados[5])
         valor_t = float(dados[6])
         hospedagens[num] = [suite,entrada,cpf,status,saida,valor_t]
       else:
@@ -152,7 +152,7 @@ while resp != 0 :
         print('1 ☪︎ cadastrar suítes ☪︎')
         print('2 ☪︎ consultar suítes ☪︎')
         print('3 ☪︎  editar suítes   ☪︎')
-        print('4 ☪︎  excluir suíte    ☪︎')
+        print('4 ☪︎  excluir suíte   ☪︎')
         print('0 ☪︎     voltar       ☪︎')
         print()
         resp2 = int(input('🤍ྀི  digite o numero da operação : '))
@@ -348,7 +348,7 @@ while resp != 0 :
               print(f'STATUS -> {dados[3]}')
               if dados[3] == 'fechado' :
                 print(f'SAÍDA -> {dados[4]}')
-                print(f'VALOR TOTAL -> {dados[5]}')
+                print(f'VALOR TOTAL -> R${dados[5]:.2f}')
             print()
             print('☪-☪'*25)
             print()
@@ -370,13 +370,13 @@ while resp != 0 :
               print(f'STATUS -> {hospedagens[num][3]}')
               if hospedagens[num][3] == 'fechado' :
                 print(f'SAÍDA -> {hospedagens[num][4]}')
-                print(f'VALOR TOTAL -> {hospedagens[num][5]}')
+                print(f'VALOR TOTAL -> {hospedagens[num][5]:.2f}')
               print()
               print('☪-☪'*25)
               print()
               input('tecle ENTER para continuar ....')
             else :
-              print(f'suíte numero {num} não encontrada')
+              print(f'hospedagem numero {num} não encontrada')
               input('pres ENTER para continuar....')
       
         elif resp2 == 3 :
@@ -431,12 +431,12 @@ while resp != 0 :
         os.system('cls')
         os.system('clear')
         print()
-        print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅ MÓDULO DE PRODUTOS E CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+        print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅ MÓDULO DE PRODUTOS  ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
         print()
         print('1 𓊯   cadastrar produstos   𓊯')
         print('2 𓊯      ver produtos       𓊯')
         print('3 𓊯     editar produto      𓊯')
-        print('4 𓊯     excluir produto      𓊯')
+        print('4 𓊯     excluir produto     𓊯')
         print('0 𓊯         voltar          𓊯')
         print()
         resp2 = int(input('🤍ྀི  digite o numero da operação : '))
@@ -447,6 +447,8 @@ while resp != 0 :
           print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CADASTRO DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
           print()
           num = max(produtos.keys()) + 1
+          print(f'NUMERO DO PRODUTO -> {num}')
+          print()
           nome = input('𓊯 digite o nome do produto para cadastrar : ')
           quant = int(input('𓊯 digite a quantidade que tem no estoque : '))
           preco = float(input('𓊯 digite o preço do produto : '))
@@ -571,13 +573,16 @@ while resp != 0 :
           resp2 = int(input('🤍ྀི  digite o numero da operação : '))
           os.system('cls')
           os.system('clear')
-
           if resp2 == 1 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CADASTRO DE PEDIDO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
             num = max(pedidos.keys()) + 1
             hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
+            print()
+            for chave, dados in produtos.items():
+              print(f'|||   PRODUTO {chave:^5} > {dados[0]:^20} |||')
+            print()
             produto = int(input('𓊯 digite o numero do produto : '))
             quantidade = int(input('𓊯 digite a quantidade que deseja : '))
             pedidos[num] = [hospedagem,produto,quantidade]
@@ -641,7 +646,7 @@ while resp != 0 :
                 print()
                 if encontrou :
                   print(F'TOTAL A PAGAR POR CONSUMO HOSPEGAEM NUMERO {num} : ')
-                  print(f'total -> R${total}')
+                  print(f'total -> R${total:.2f}')
                 else :
                   print(f'nem um pedido cadastrado na hospedagem {num}')
                 input('tecle ENTER para continuar......')
@@ -686,7 +691,7 @@ for num, dados in suites.items() :
 arq_suites.close()
 
 arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
-for chave,dados in hospedagens.items() : 
+for num,dados in hospedagens.items() : 
   if dados[3] == 'fechado' :
     arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n')
   else :
