@@ -59,19 +59,58 @@ except:
     else :
       arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
   arq_hospedagens.close()
+produtos = {}
+try : 
+  arq_produtos = open('produtos.txt','rt', encoding="utf-8")
+  for linha in arq_produtos : 
+    linha = linha.strip()
+    if linha :
+      dados = linha.split(',')
+      num = int(dados[0])
+      produto = dados[1]
+      estoque = int(dados[2])
+      valor = float(dados[3])
+      produtos[num] = [produto, estoque, valor]
+  arq_produtos.close()
 
-produtos = {
+except : 
+  produtos = {
   1 : ['vinho', 20 , 50.0 ],
   2 : ['lubrificante', 15, 5.5],
   3 : ['camisinha', 30 , 5.5 ]
-}
-pedidos = { 
+  }
+  arq_produtos = open('produtos.txt','wt',encoding="utf-8")
+  for num, dados in produtos.items() :
+      arq_produtos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+  arq_produtos.close()
+
+pedidos = {}
+try : 
+  arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")
+  for linha in arq_pedidos : 
+    linha = linha.strip()
+    if linha :
+      dados = linha.split(',')
+      num = int(dados[0])
+      suite = int(dados[1])
+      produto = int(dados[2])
+      quantidade = int(dados[3])
+      pedidos[num] = [suite, produto, quantidade]
+  arq_pedidos.close()
+
+except : 
+  pedidos = { 
   1 : [1,2,1],
   2 : [1,1,4],
   3 : [2,1,4],
   4 : [2,1,4],
   5 : [2,1,4]
-}
+  }
+  arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
+  for num, dados in pedidos.items() :
+      arq_pedidos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+  arq_pedidos.close()
+
 
 resp = ''
 while resp != 0 :
@@ -653,3 +692,13 @@ for chave,dados in hospedagens.items() :
   else :
     arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
 arq_hospedagens.close()
+
+arq_produtos = open('produtos.txt','wt',encoding="utf-8")
+for num, dados in produtos.items() :
+    arq_produtos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+arq_produtos.close()
+
+arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
+for num, dados in pedidos.items() :
+    arq_pedidos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+arq_pedidos.close()
