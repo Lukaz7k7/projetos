@@ -125,7 +125,7 @@ while resp != 0 :
 𓆩❤︎ 𓆪       █ █      █ █         █   █       █   █   █     █   █   𓆩❤︎ 𓆪
 𓆩❤︎ 𓆪   ████  █████ █   █    ████    █   ████    █   █████ █   █   𓆩❤︎ 𓆪
   જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡જ⁀➴ ♡
-          ''')
+                     ''')
     
     print('1 ❥ módulo suítes ')
     print('2 ❥ módulo hospedagens')
@@ -135,7 +135,13 @@ while resp != 0 :
     print('6 ❥ módolo de informações')
     print('0 ❥ sair ')
     print()
-    resp = int(input('🤍ྀི   digite sua resposta : '))
+    resp = input('🤍ྀི   digite sua resposta : ')
+    while not resp.isnumeric():
+      print()
+      print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+      print()
+      resp = input('🤍ྀི   digite sua resposta : ')
+    resp = int(resp)
     os.system('cls')
     os.system('clear')
 
