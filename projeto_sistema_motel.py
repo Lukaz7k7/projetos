@@ -13,18 +13,41 @@ try :
       tipo = dados[1]
       valor = float(dados[2])
       status = dados[3]
-      suites[num] = [tipo, valor, status]
+      ativo = dados[4]
+      suites[num] = {
+        'tipo' : tipo, 
+        'valor' : valor,
+        'status' : status,
+        'ativo' : ativo
+        }
   arq_suites.close()
 
 except : 
   suites = {
-        1 : ['premiun',69.0,'ocupado'],
-        2 : ['simplees', 24.0, 'ocupado'],
-        3 : ['luxo', 45.50 , 'livre']
+
+        1 : {
+          'tipo' : 'premiun',
+          'valor' : 69.0,
+          'status': 'ocupado',
+          'ativo' : True,
+        },
+
+        2 : {
+          'tipo'  : 'simples',
+          'valor' : 24.0,
+          'status': 'ocupado',
+          'ativo' : True,
+        },
+        3 : {
+          'tipo'  : 'luxo',
+          'valor' : 45.50,
+          'status': 'livre',
+          'ativo' : True,
+          },
   }
   arq_suites = open('suites.txt','wt',encoding="utf-8")
   for num, dados in suites.items() :
-      arq_suites.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+      arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
   arq_suites.close()
 
 hospedagens = {}
@@ -36,29 +59,52 @@ try :
       dados = linha.split(',')
       num = int(dados[0])
       suite = int(dados[1])
-      entrada = datetime(dados[2])
+      entrada = datetime.fromisoformat(dados[2])
       cpf = int(dados[3])
       status = dados[4]
       if dados[4] == 'fechado':
-        saida = datetime(dados[5])
+        saida = datetime.fromisoformat(dados[5])
         valor_t = float(dados[6])
-        hospedagens[num] = [suite,entrada,cpf,status,saida,valor_t]
+        hospedagens[num] = {
+          'suite' : suite,
+          'entrada' : entrada,
+          'cpf' : cpf,
+          'status' : status,
+          'saida' : saida,
+          'valor_t' : valor_t,
+             }
       else:
-        hospedagens[num] = [suite,entrada,cpf,status]
-  arq_hospedagens.close
+        hospedagens[num] = {
+          'suite' : suite,
+          'entrada' : entrada,
+          'cpf' : cpf,
+          'status' : status,
+           }
+  arq_hospedagens.close()
 
 except:
   hospedagens = {
-    1 : [1, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ],
-    2 : [2, datetime(2026, 6, 13, 15, 30, 42) , 10531031403 , 'em aberto' ]
+    1 : {
+      'suite' : 1, 
+      'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
+      'cpf' :  10531031403 ,
+      'status' :  'em aberto',
+      },
+    2 : {
+      'suite' : 2, 
+      'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
+      'cpf' :  10531031403 ,
+      'status' :  'em aberto',
+      },
   }
   arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
-  for chave,dados in hospedagens.items() : 
-    if dados[3] == 'fechado' :
-      arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n')
+  for num,dados in hospedagens.items() : 
+    if dados['status'] == 'fechado' :
+      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
     else :
-      arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
+      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
   arq_hospedagens.close()
+
 produtos = {}
 try : 
   arq_produtos = open('produtos.txt','rt', encoding="utf-8")
@@ -70,18 +116,39 @@ try :
       produto = dados[1]
       estoque = int(dados[2])
       valor = float(dados[3])
-      produtos[num] = [produto, estoque, valor]
+      ativo = dados[4]
+      produtos[num] = {
+        'produto' : produto, 
+        'estoque' : estoque,
+        'valor' : valor,
+        'ativo' : ativo
+        }
   arq_produtos.close()
 
 except : 
   produtos = {
-  1 : ['vinho', 20 , 50.0 ],
-  2 : ['lubrificante', 15, 5.5],
-  3 : ['camisinha', 30 , 5.5 ]
+  1 : {
+    'produto' : 'vinho', 
+    'estoque' : 20 ,
+    'valor' :  50.0 ,
+    'ativo' : True ,
+    },
+  2 : {
+    'produto' : 'lubrificante',
+    'estoque' : 15,
+    'valor' :  5.5,
+    'ativo' : True ,
+    },
+  3 : {
+    'produto' : 'camisinha',
+    'estoque' : 15,
+    'valor' :  5.5,
+    'ativo' : True ,
+    },
   }
   arq_produtos = open('produtos.txt','wt',encoding="utf-8")
   for num, dados in produtos.items() :
-      arq_produtos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+      arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
   arq_produtos.close()
 
 pedidos = {}
@@ -92,23 +159,61 @@ try :
     if linha :
       dados = linha.split(',')
       num = int(dados[0])
-      suite = int(dados[1])
+      hospedagem = int(dados[1])
       produto = int(dados[2])
       quantidade = int(dados[3])
-      pedidos[num] = [suite, produto, quantidade]
+      status = dados[4]
+      ativo = dados[5]
+      pedidos[num] = {
+        'hospedagem' : hospedagem , 
+        'produto' : produto,
+        'quantidade' : quantidade,
+        'status' : status,
+        'ativo' : ativo,
+        }
   arq_pedidos.close()
 
 except : 
   pedidos = { 
-  1 : [1,2,1],
-  2 : [1,1,4],
-  3 : [2,1,4],
-  4 : [2,1,4],
-  5 : [2,1,4]
+  1 : {
+    'hospedagem' : 1,
+    'produto' : 2,
+    'quantidade' : 1,
+    'status' : 'em aberto',
+    'ativo' : True,
+    },
+  2 : {
+    'hospedagem' : 1,
+    'produto' : 1,
+    'quantidade' : 4,
+    'status' : 'em aberto',
+    'ativo' : True,
+    },
+  3 : {
+    'hospedagem' : 2,
+    'produto' : 1,
+    'quantidade' : 4,
+    'status' : 'em aberto',
+    'ativo' : True,
+    },
+  4 : {
+    'hospedagem' : 2,
+    'produto' : 1,
+    'quantidade' : 4,
+    'status' : 'em aberto',
+    'ativo' : True,
+    },
+  5 : {
+    'hospedagem' : 2,
+    'produto' : 1,
+    'quantidade' : 4,
+    'status' : 'em aberto',
+    'ativo' : True,
+    },
   }
   arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
   for num, dados in pedidos.items() :
-      arq_pedidos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+      arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
   arq_pedidos.close()
 
 
@@ -184,7 +289,12 @@ while resp != 0 :
 
           valor_s = float(input('☪ informe o valor por hora : R$ '))
           print()
-          suites[numero_s] = [tipo_s, valor_s, 'livre']
+          suites[numero_s] = {
+            'tipo' : tipo_s, 
+            'valor': valor_s,
+            'status': 'livre',
+            'ativo': True
+            }
           print('suíte cadastrada com suscesso !')
           input('pres ENTER para continuar...')
 
@@ -202,11 +312,12 @@ while resp != 0 :
             print()
             print('☪-☪'*25)
             for chave, dados in suites.items() :
+              if dados['ativo']:
                 print()
                 print(f'SUÍTE NUMERO -> {chave}')
-                print(f'tipo -> {dados[0]}')
-                print(f'valor por hora -> R${dados[1]}')
-                print(f'status -> {dados[2]}')
+                print(f'tipo -> {dados['tipo']}')
+                print(f'valor por hora -> R${dados['valor']}')
+                print(f'status -> {dados['status']}')
                 print()
                 print('☪-☪'*25)
 
@@ -217,12 +328,12 @@ while resp != 0 :
             print('✩₊˚.⋆☾⋆⁺₊✧ PESQUISA DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
             print()
             num = int(input('digite o numero da suíte que deseja consultar : '))
-            if num in suites :
+            if num in suites and suites[num]['ativo'] :
               print()
               print(f'☪ numero -> {num}')
-              print(f'☪ tipo -> {suites[num][0]}')
-              print(f'☪ valor por hora -> {suites[num][1]}')
-              print(f'☪ status -> {suites[num][2]}')
+              print(f'☪ tipo -> {suites[num]['tipo']}')
+              print(f'☪ valor por hora -> {suites[num]['valor']}')
+              print(f'☪ status -> {suites[num]['status']}')
               print()
               input('tecle ENTER para continuar .....')
             else :
@@ -235,8 +346,8 @@ while resp != 0 :
           print()
           num = int(input('digite o numero da suíte que deseja editar : '))
           if num in suites :
-            if suites[num][2] != "ocupado" :
-                tipo_s = input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : ')
+            if suites[num]['status'] != "ocupado" or suites[num]['ativo'] :
+                tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
                 while tipo_s not in [1,2,3] :
                   print('numero invalido, escolha um numero valido')
                   tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
@@ -247,12 +358,18 @@ while resp != 0 :
                     tipo_s = 'luxo'
                   case 3 :
                     tipo_s = 'premium'
+
                 valor_s = float(input('☪ valor por hora : R$ '))
-                suites[num] = [tipo_s, valor_s, 'livre']
+                suites[num] = suites[numero_s] = {
+                        'tipo' : tipo_s, 
+                        'valor': valor_s,
+                        'status': 'livre',
+                        'ativo': True
+                      }
                 print('suíte editada com suscesso')
                 input('pres ENTER para continuar....')
             else:
-                print(f'suíte numero {num} não pode ser editada pois está em uso')
+                print(f'suíte numero {num} não pode ser editada pois está em uso ou desativada')
                 input('pres ENTER para continuar....')
           else :
                 print(f'suíte numero {num} não encontrada')
@@ -265,16 +382,16 @@ while resp != 0 :
           print()
           num = int(input('digite o numero da suíte que deseja excluir : '))
           print()
-          if num in suites :
-                if suites[num][2] != "ocupado" :
+          if num in suites and suites[num]['ativo'] :
+                if suites[num]['status'] != "ocupado" :
                   print(f'☪ numero -> {num}')
-                  print(f'☪ tipo -> {suites[num][0]}')
-                  print(f'☪ valor por hora -> {suites[num][1]}')
-                  print(f'☪ status -> {suites[num][2]}')
+                  print(f'☪ tipo -> {suites[num]['tipo']}')
+                  print(f'☪ valor por hora -> {suites[num]['valor']}')
+                  print(f'☪ status -> {suites[num]['status']}')
                   print()
                   respd = input('deseja mesmo deletar essa suíte ? [S/N] ')
                   if respd == 's' or respd == 'S' :
-                    del(suites[num])
+                    suites[num]['ativo'] = False 
                     print('suíte excluida com suscesso')
                     input('pres ENTER para continuar....')
                   else :
@@ -307,28 +424,47 @@ while resp != 0 :
         os.system('clear')
 
         if resp2 == 1 :
-          print()
-          print('✩₊˚.⋆☾⋆⁺₊✧ MÓDULO DE CHECK-IN ✩₊˚.⋆☾⋆⁺₊✧')
-          print()
-          for i in range(1,(len(suites)+1)):
-            if 'livre' in suites[i] : 
-              print(f'suíte {i} : ',suites[i],end=' -=- ')
-          print()
-          print()
-          id_hospedagem = len(hospedagens)+1
-          print(f'NUMERO DA SUA HOSPEDAGEM -> {id_hospedagem}')
-          print()
-          suite = int(input('ָ☾. digite o numero da suite que deseja : '))
-          while suite not in suites or suites[suite][2] != "livre" :
-              print('suíte invalida, digite uma suíte disponivel.')
+          livre = 0
+          for chave, dados in suites.items():
+            if dados['status'] == 'livre' and dados['ativo'] :
+              livre += 1
+          if livre > 0 :
+              print()
+              print('✩₊˚.⋆☾⋆⁺₊✧ MÓDULO DE CHECK-IN ✩₊˚.⋆☾⋆⁺₊✧')
+              print()
+              print('SUITES LIVRES:')
+              print()
+              for chave, dados in suites.items():
+                if dados['status'] == 'livre' and dados['ativo']:
+                  print(f'|||   SUITE NÚMERO  > {chave:^5} |   TTPO   >  {dados['tipo']:^10} |   VALOR POR HR   >   R${dados['valor']:^10} |||')
+                  print()
+              print()
+              num = len(hospedagens)+1
+              print(f'NUMERO DA SUA HOSPEDAGEM -> {num}')
+              print()
               suite = int(input('ָ☾. digite o numero da suite que deseja : '))
-          cpf = int(input('ָ☾. digite o seu CPF : '))
-          entrada = datetime.now()
-          print()
-          hospedagens[id_hospedagem] = [suite,entrada,cpf,'em aberto']
-          suites[suite][2] = 'ocupado'
-          print('check-in feita com suscesso ! ')
-          input('tecle ENTER pra contimuar....')
+              while suite not in suites or (suites[suite]['status'] != "livre" and suites[suite]['ativo'] == False) :
+                  print('suíte invalida, digite uma suíte disponivel.')
+                  suite = int(input('ָ☾. digite o numero da suite que deseja : '))
+              cpf = int(input('ָ☾. digite o seu CPF : '))
+              entrada = datetime.now()
+              print()
+              hospedagens[num] = {
+              'suite' : suite,
+              'entrada' : entrada,
+              'cpf' : cpf,
+              'status' : 'em aberto',
+              }
+              suites[suite]['status'] = 'ocupado'
+              print('check-in feita com suscesso ! ')
+              input('tecle ENTER pra contimuar....')
+          else :
+            print()
+            print('✩₊˚.⋆☾⋆⁺₊✧ MÓDULO DE CHECK-IN ✩₊˚.⋆☾⋆⁺₊✧')
+            print()
+            print('!! todas as suites estão cheias  !! ')
+            print()
+            input('tecle ENTER pra contimuar....')
 
         elif resp2 == 2 :
           print()
@@ -348,13 +484,13 @@ while resp != 0 :
               print()
               print(f'hospedagem numero -> {chave}')
               print()
-              print(f'SUITE -> {dados[0]}')
-              print(f'ENTRADA -> {dados[1]}')
-              print(f'CPF -> {dados[2]}')
-              print(f'STATUS -> {dados[3]}')
+              print(f'SUITE -> {dados['suite']}')
+              print(f'ENTRADA -> {dados['entrada']}')
+              print(f'CPF -> {dados['cpf']}')
+              print(f'STATUS -> {dados['status']}')
               if dados[3] == 'fechado' :
-                print(f'SAÍDA -> {dados[4]}')
-                print(f'VALOR TOTAL -> R${dados[5]:.2f}')
+                print(f'SAÍDA -> {dados['saida']}')
+                print(f'VALOR TOTAL -> R${dados['valor_t']:.2f}')
             print()
             print('☪-☪'*25)
             print()
@@ -370,13 +506,13 @@ while resp != 0 :
               print()
               print(f'hospedagem numero -> {num}')
               print()
-              print(f'SUITE -> {hospedagens[num][0]}')
-              print(f'ENTRADA -> {hospedagens[num][1]}')
-              print(f'CPF -> {hospedagens[num][2]}')
-              print(f'STATUS -> {hospedagens[num][3]}')
+              print(f'SUITE -> {hospedagens[num]['suite']}')
+              print(f'ENTRADA -> {hospedagens[num]['entrada']}')
+              print(f'CPF -> {hospedagens[num]['cpf']}')
+              print(f'STATUS -> {hospedagens[num]['status']}')
               if hospedagens[num][3] == 'fechado' :
-                print(f'SAÍDA -> {hospedagens[num][4]}')
-                print(f'VALOR TOTAL -> {hospedagens[num][5]:.2f}')
+                print(f'SAÍDA -> {hospedagens[num]['saida']}')
+                print(f'VALOR TOTAL -> R${hospedagens[num]['valor_t']:.2f}')
               print()
               print('☪-☪'*25)
               print()
@@ -396,34 +532,39 @@ while resp != 0 :
             hospedagens[num].append(saida)
             print()
             print(f'☾. numero -> {num}')
-            print(f'ָ☾. suíte -> {hospedagens[num][0]}')
-            print(f'ָ☾. entrada -> {hospedagens[num][1]}')
-            print(f'ָ☾. CPF -> {hospedagens[num][2]}')
-            print(f'ָ☾. status -> {hospedagens[num][3]}')
-            print(f'ָ☾. saida -> {hospedagens[num][4]}')
-            tempo_t = hospedagens[num][4] - hospedagens[num][1]
+            print(f'ָ☾. suíte -> {hospedagens[num]['suite']}')
+            print(f'ָ☾. entrada -> {hospedagens[num]['entrada']}')
+            print(f'ָ☾. CPF -> {hospedagens[num]['cpf']}')
+            print(f'ָ☾. status -> {hospedagens[num]['status']}')
+            print(f'ָ☾. saida -> {hospedagens[num]['saida']}')
+            tempo_t = hospedagens[num]['saida'] - hospedagens[num]['entrada']
             tempo_t = tempo_t.total_seconds() / 3600
-            valor_hospedagem = tempo_t * suites[hospedagens[num][0]][1]
+            valor_hospedagem = tempo_t * suites[hospedagens[num]['suite']]['valor']
             print(f'ָ☾. valor da hospedagem -> R${valor_hospedagem:.2f}')
 
             valor_consumo = 0
             for i in range(1,len(pedidos)+1) :
-              if pedidos[i][0] == num :
-                 valor_consumo += produtos[pedidos[i][1]][2] * pedidos[i][2]
+              if pedidos[i]['hospedagem'] == num :
+                 valor_consumo += produtos[pedidos[i]['produto']]['valor'] * pedidos[i]['quantidade']
 
+            valor_t = valor_consumo + valor_hospedagem
             print(f'ָ☾. valor de consumo -> R${valor_consumo}')  
-            print(f'ָ☾. valor total -> R${valor_consumo + valor_hospedagem :.2f} ')
+            print(f'ָ☾. valor total -> R${valor_t:.2f} ')
             print()
-            suite = hospedagens[num][0]
+            suite = hospedagens[num]['suite']
             resp4 = input('dejeja fechar essa hospedagem ? [S/N] ')
             if resp4 in 'Ss' :
-              suites[suite][2] = 'livre'
-              hospedagens[num][3] = 'fechado'
-              hospedagens[num].append(valor_hospedagem)
+              suites[suite]['status'] = 'livre'
+              hospedagens[num]['status'] = 'fechado'
+              hospedagens[num].append(valor_t)
+              for i in range(1,len(pedidos)+1) :
+                if pedidos[i]['hospedagem'] == num and pedidos[i]['ativo']:
+                  pedidos[i]['status'] = 'fechado'
+
               print('check-out realizado com suscesso !')
             else :
               print('check-out cancelado')
-              del(hospedagens[num][4])
+              del(hospedagens[num]['saida'])
           else:
             print(f'hospedagem numero {num} não encontrada')
             input('pres ENTER para continuar....')
@@ -455,10 +596,15 @@ while resp != 0 :
           num = max(produtos.keys()) + 1
           print(f'NUMERO DO PRODUTO -> {num}')
           print()
-          nome = input('𓊯 digite o nome do produto para cadastrar : ')
-          quant = int(input('𓊯 digite a quantidade que tem no estoque : '))
-          preco = float(input('𓊯 digite o preço do produto : '))
-          produtos[num] = [nome,quant,preco]
+          produto = input('𓊯 digite o nome do produto para cadastrar : ')
+          estoque = int(input('𓊯 digite a quantidade que tem no estoque : '))
+          valor = float(input('𓊯 digite o preço do produto : '))
+          produtos[num] = {
+        'produto' : produto, 
+        'estoque' : estoque,
+        'valor' : valor,
+        'ativo' : True
+        }
           print('produto cadastrado com sucesso')
           input('tecle o ENTER para continuar.....')
 
@@ -475,14 +621,15 @@ while resp != 0 :
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
             for chave, dados in produtos.items() :
-              print()
-              print('☕︎ 𓎩 ‧₊˚'*15)
-              print()
-              print(f'produto numero -> {chave}')
-              print()
-              print(f'𓊯 nome -> {dados[0]}')
-              print(f'𓊯 estoque -> {dados[1]}')
-              print(f'𓊯 preço -> R$ {dados[2]}')
+              if dados['ativo']:
+                print()
+                print('☕︎ 𓎩 ‧₊˚'*15)
+                print()
+                print(f'produto numero -> {chave}')
+                print()
+                print(f'𓊯 nome -> {dados['produto']}')
+                print(f'𓊯 estoque -> {dados['estoque']}')
+                print(f'𓊯 preço -> R$ {dados['valor']}')
             print()
             print('☕︎ 𓎩 ‧₊˚'*15)
             print()
@@ -493,13 +640,13 @@ while resp != 0 :
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
             num = int(input('digite o numero do produto que deseja consultar : '))
-            if num in produtos :
+            if num in produtos and produtos[num]['ativo'] :
               print()
               print(f'produto numero -> {num}')
               print()
-              print(f'𓊯 nome -> {produtos[num][0]}')
-              print(f'𓊯 estoque -> {produtos[num][1]}')
-              print(f'𓊯 preço -> R$ {produtos[num][2]}')
+              print(f'𓊯 nome -> {produtos[num]['produto']}')
+              print(f'𓊯 estoque -> {produtos[num]['estoque']}')
+              print(f'𓊯 preço -> R$ {produtos[num]['valor']}')
               print()
               input('tecle ENTER para continuar.....')
             else : 
@@ -511,26 +658,23 @@ while resp != 0 :
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  EDIÇÃO DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
             num = int(input('digite o numero do produto que deseja editar : '))
-            if num in produtos :
+            if num in produtos and produtos[num]['ativo'] :
                   print()
                   print(f'produto numero -> {num}')
                   print()
-                  print(f'1 𓊯 nome -> {produtos[num][0]}')
-                  print(f'2 𓊯 estoque -> {produtos[num][1]}')
-                  print(f'3 𓊯 preço -> R$ {produtos[num][2]}')
+                  print(f'1 𓊯 nome -> {produtos[num]['produto']}')
+                  print(f'2 𓊯 estoque -> {produtos[num]['estoque']}')
+                  print(f'3 𓊯 preço -> R$ {produtos[num]['valor']}')
                   print()
-                  editar_p = (int(input('digite o numero do que quer editar : '))-1)
-                  while editar_p not in [1,2,3] :
-                    print('resposta invalida, digite uma resposta valida !')
-                    editar_p = (int(input('digite o numero do que quer editar : '))-1)
-
-                  if editar_p == 0 :
-                    editar = input('digite a nova informação : ')
-                  elif editar_p == 1 :
-                    editar = int(input('digite a nova informação : '))
-                  else:
-                    editar = float(input('digite a nova informação : '))
-                  produtos[num][editar_p] = editar
+                  produto = input('𓊯 digite o novo nome do produto para cadastrar : ')
+                  estoque = int(input('𓊯 digite a nova quantidade que tem no estoque : '))
+                  valor = float(input('𓊯 digite o novo preço do produto : '))
+                  produtos[num] = {
+                  'produto' : produto, 
+                  'estoque' : estoque,
+                  'valor' : valor,
+                  'ativo' : True
+                    }
                   print('produto editado com suscesso ! ')
                   input('tecle ENTER para continuar.....')
             else : 
@@ -546,13 +690,13 @@ while resp != 0 :
                   print()
                   print(f'produto numero -> {num}')
                   print()
-                  print(f' 𓊯 nome -> {produtos[num][0]}')
-                  print(f' 𓊯 estoque -> {produtos[num][1]}')
-                  print(f' 𓊯 preço -> R$ {produtos[num][2]}')
+                  print(f' 𓊯 nome -> {produtos[num]['produto']}')
+                  print(f' 𓊯 estoque -> {produtos[num]['estoque']}')
+                  print(f' 𓊯 preço -> R$ {produtos[num]['valor']}')
                   print()
                   resp = input('deseja mesmo deletar esse produto ? [S/N] ')
                   if resp in 'sS' :
-                    del(produtos[num])
+                    produtos[num]['ativo'] = False
                     print('produto excluido com suscesso')
                     input('pres ENTER para continuar....')
                   else :
@@ -574,6 +718,7 @@ while resp != 0 :
           print()
           print('1 𓊯    resistrar pedido     𓊯')
           print('2 𓊯    consultar pedidos    𓊯')
+          print('3 𓊯    cancelar pedidos     𓊯')
           print('0 𓊯         voltar          𓊯')
           print()
           resp2 = int(input('🤍ྀི  digite o numero da operação : '))
@@ -584,14 +729,26 @@ while resp != 0 :
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CADASTRO DE PEDIDO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
             num = max(pedidos.keys()) + 1
+            print(f'NUMERO DO PEDIDO -> {num}')
+            print()
             hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
+            while hospedagem not in hospedagens or hospedagens[hospedagem]['status'] == 'fechado':
+              print('! HOSPEDAGEM INVALIDDA !')
+              hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
             print()
             for chave, dados in produtos.items():
-              print(f'|||   PRODUTO {chave:^5} > {dados[0]:^20} |||')
+              print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
             print()
             produto = int(input('𓊯 digite o numero do produto : '))
             quantidade = int(input('𓊯 digite a quantidade que deseja : '))
-            pedidos[num] = [hospedagem,produto,quantidade]
+            pedidos[num] = {
+            'hospedagem' : hospedagem , 
+            'produto'    : produto,
+            'quantidade' : quantidade,
+            'status' : 'em aberto',
+            'ativo' : True ,
+                          }
+            produtos[produto]['estoque'] = produtos[produto]['estoque'] - quantidade
             print('pedido cadastrado com sucesso')
             input('tecle o ENTER para continuar.....')
         
@@ -601,6 +758,7 @@ while resp != 0 :
             print()
             print('1 ָ☾. listar todas')
             print('2 ָ☾. buscar por hospedagem')
+            print('3 ָ☾. buscar por pedido')
             print()
             resp3 = int(input('🤍ྀི  digite o numero da operação : '))
 
@@ -609,20 +767,22 @@ while resp != 0 :
               print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
               print()
               for chave, dados in pedidos.items() :
-                print()
-                print('☕︎ 𓎩 ‧₊˚'*15)
-                print()
-                print(f'pedido numero -> {chave}')
-                print()
-                print(f'𓊯 hospedagem -> {dados[0]}')
-                print(f'𓊯 produto -> {produtos[dados[1]][0]}')
-                print(f'𓊯 quantidade -> {dados[2]}')
+                if dados['ativo'] :
+                  print()
+                  print('☕︎ 𓎩 ‧₊˚'*15)
+                  print()
+                  print(f'pedido numero -> {chave}')
+                  print()
+                  print(f'𓊯 hospedagem -> {dados['hospedagem']}')
+                  print(f'𓊯 produto -> {produtos[dados['produto']]['produto']}')
+                  print(f'𓊯 quantidade -> {dados['quantidade']}')
+                  print(f'𓊯 status -> {dados['status']}')
               print()
               print('☕︎ 𓎩 ‧₊˚'*15)
               print()
               input('tecle ENTER para continuar.....')
             
-            else :
+            elif resp3 == 2 :
               print()
               print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
               print()
@@ -636,17 +796,18 @@ while resp != 0 :
                 encontrou = False
                 total = 0
                 for i in range(1,len(pedidos)+1) :
-                  if pedidos[i][0] == num :
+                  if pedidos[i]['hospedagem'] == num :
                     print()
                     print('☕︎ 𓎩 ‧₊˚'*15)
                     print()
                     print(f'pedido numero -> {i}')
                     print()
-                    print(f'𓊯 hospedagem -> {pedidos[i][0]}')
-                    print(f'𓊯 produto -> {produtos[pedidos[i][1]][0]}')
-                    print(f'𓊯 quantidade -> {pedidos[i][2]}')
+                    print(f'𓊯 hospedagem -> {pedidos[i]['hospedagem']}')
+                    print(f'𓊯 produto -> {produtos[pedidos[i]['produto']]['produto']}')
+                    print(f'𓊯 quantidade -> {pedidos[i]['quantidade']}')
+                    print(f'𓊯 status -> {pedidos[i]['status']}')
                     encontrou = True
-                    total += produtos[pedidos[i][1]][2] * pedidos[i][2]
+                    total += produtos[pedidos[i]['produto']]['valor'] * pedidos[i]['quantidade']
                 print() 
                 print('☕︎ 𓎩 ‧₊˚'*15)
                 print()
@@ -656,6 +817,53 @@ while resp != 0 :
                 else :
                   print(f'nem um pedido cadastrado na hospedagem {num}')
                 input('tecle ENTER para continuar......')
+            elif resp3 == 3:
+              print()
+              print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+              print()
+              num = int(input('digite o numero do pedido que deseja consultar : '))
+              if num in pedidos and pedidos[num]['ativo'] :
+                  print()
+                  print(f'pedido numero -> {num}')
+                  print()
+                  print(f'𓊯 hospedagem -> {pedidos[num]['hospedagem']}')
+                  print(f'𓊯 produto -> {produtos[pedidos[num]['produto']]['produto']}')
+                  print(f'𓊯 quantidade -> {pedidos[num]['quantidade']}')
+                  print(f'𓊯 status -> {pedidos[num]['status']}')
+                  print()  
+                  input('pres ENTER para continuar....')
+              else : 
+                print(f'pedido numero {num} não encontrado')
+                input('pres ENTER para continuar....')
+
+          elif resp2 == 3 :
+            print()
+            print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CANCELAR PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+            print()
+            num = int(input('digite o numero do pedido que deseja cancelar : '))
+            if num in pedidos and pedidos[num]['ativo'] : 
+              if pedidos[num]['status'] == 'em aberto' :
+                  print()
+                  print(f'pedido numero -> {num}')
+                  print()
+                  print(f'𓊯 hospedagem -> {pedidos[num]['hospedagem']}')
+                  print(f'𓊯 produto -> {produtos[pedidos[num]['produto']]['produto']}')
+                  print(f'𓊯 quantidade -> {pedidos[num]['quantidade']}')
+                  print(f'𓊯 status -> {pedidos[num]['status']}')
+                  print()
+                  resp = input('deseja mesmo cancelar esse pedido ? [S/N] ')
+                  if resp in 'sS' :
+                    pedidos[num]['ativo'] = False
+                    print('pedido cancelado com suscesso')
+                    input('pres ENTER para continuar....')
+                  else :
+                    print('operação canselada')
+              else : 
+                print(f'pedido numero {num} ja foi pago')
+                input('pres ENTER para continuar....')
+            else : 
+              print(f'pedido numero {num} não encontrado')
+              input('pres ENTER para continuar....')
                     
       
     # módulo de relatorio
@@ -693,23 +901,23 @@ print('········· FIM DO PROGRAMA ·········')
 
 arq_suites = open('suites.txt','wt',encoding="utf-8")
 for num, dados in suites.items() :
-    arq_suites.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+    arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
 arq_suites.close()
 
 arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
 for num,dados in hospedagens.items() : 
-  if dados[3] == 'fechado' :
-    arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]},{dados[4]},{dados[5]}\n')
+  if dados['status'] == 'fechado' :
+    arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
   else :
-    arq_hospedagens.write(f'{num},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n')
+    arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
 arq_hospedagens.close()
 
 arq_produtos = open('produtos.txt','wt',encoding="utf-8")
 for num, dados in produtos.items() :
-    arq_produtos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+    arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
 arq_produtos.close()
 
 arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
 for num, dados in pedidos.items() :
-    arq_pedidos.write(f'{num},{dados[0]},{dados[1]},{dados[2]}\n')
+    arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
 arq_pedidos.close()

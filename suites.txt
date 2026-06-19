@@ -1,3 +1,4 @@
-1,premiun,69.0,ocupado
-2,simplees,24.0,ocupado
-3,luxo,45.5,ocupado
+1,premiun,69.0,ocupado,True
+2,simples,24.0,ocupado,True
+3,luxo,45.5,livre,True
+4,premium,777.0,livre,True
