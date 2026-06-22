@@ -25,9 +25,17 @@ def verifica_cpf(cpf):
         return True
     return False
 
-def verifica_int(valor):
+def verifica_int(x):
     try:
-        int(valor)
+        int(x)
+        return True
+
+    except :
+        return False
+
+def verifica_float(x):
+    try:
+        float(x)
         return True
 
     except :

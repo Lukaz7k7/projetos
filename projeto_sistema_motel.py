@@ -1,6 +1,6 @@
 import os , time 
 from datetime import datetime
-from verifica import verifica_cpf, verifica_int
+from verifica import verifica_cpf, verifica_int, verifica_float
 
     # recuperando dados dos arquivos
 
@@ -683,7 +683,13 @@ while resp != 0 :
               print()
               estoque = input('🤍ྀི  digite a quantidade que tem no estoque : ')
           estoque = int(estoque)
-          valor = float(input('𓊯 digite o preço do produto : '))
+          valor = input('𓊯 digite o preço do produto : ')
+          while not verifica_float(valor):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              valor = input('🤍ྀི  digite o preço do produto : ')
+          valor = float(valor)
           produtos[num] = {
         'produto' : produto, 
         'estoque' : estoque,
@@ -777,7 +783,13 @@ while resp != 0 :
                     print()
                     estoque = input('🤍ྀི  digite a nova quantidade que tem no estoque : ')
                   estoque = int(estoque)
-                  valor = float(input('𓊯 digite o novo preço do produto : '))
+                  valor = input('𓊯 digite o novo preço do produto : ')
+                  while not verifica_float(valor):
+                    print()
+                    print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                    print()
+                    valor = input('🤍ྀི  digite o novo preço do produto : ')
+                  valor = float(valor)
                   produtos[num] = {
                   'produto' : produto, 
                   'estoque' : estoque,
