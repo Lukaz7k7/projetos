@@ -1,4 +1,3 @@
-1,vinho,18,50.0,True
+1,vinho,20,50.0,True
 2,lubrificante,15,5.5,True
 3,camisinha,15,5.5,True
-4,camarão alho e oleo,7,45.0,True

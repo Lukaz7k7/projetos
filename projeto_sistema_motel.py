@@ -4,217 +4,217 @@ from datetime import datetime
    # recuperando dados dos arquivos
 suites = {}
 try : 
-  arq_suites = open('suites.txt','rt', encoding="utf-8")
-  for linha in arq_suites : 
-    linha = linha.strip()
-    if linha :
-      dados = linha.split(',')
-      num = int(dados[0])
-      tipo = dados[1]
-      valor = float(dados[2])
-      status = dados[3]
-      ativo = dados[4]
-      suites[num] = {
-        'tipo' : tipo, 
-        'valor' : valor,
-        'status' : status,
-        'ativo' : ativo
-        }
-  arq_suites.close()
+        arq_suites = open('suites.txt','rt', encoding="utf-8")
+        for linha in arq_suites : 
+            linha = linha.strip()
+            if linha :
+                dados = linha.split(',')
+                num = int(dados[0])
+                tipo = dados[1]
+                valor = float(dados[2])
+                status = dados[3]
+                ativo = dados[4] == "True"
+                suites[num] = {
+                    'tipo' : tipo, 
+                    'valor' : valor,
+                    'status' : status,
+                    'ativo' : ativo
+                    }
+        arq_suites.close()
 
 except : 
-  suites = {
+    suites = {
 
-        1 : {
-          'tipo' : 'premiun',
-          'valor' : 69.0,
-          'status': 'ocupado',
-          'ativo' : True,
-        },
+            1 : {
+            'tipo' : 'premiun',
+            'valor' : 69.0,
+            'status': 'ocupado',
+            'ativo' : True,
+            },
 
-        2 : {
-          'tipo'  : 'simples',
-          'valor' : 24.0,
-          'status': 'ocupado',
-          'ativo' : True,
-        },
-        3 : {
-          'tipo'  : 'luxo',
-          'valor' : 45.50,
-          'status': 'livre',
-          'ativo' : True,
-          },
-  }
-  arq_suites = open('suites.txt','wt',encoding="utf-8")
-  for num, dados in suites.items() :
-      arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
-  arq_suites.close()
+            2 : {
+            'tipo'  : 'simples',
+            'valor' : 24.0,
+            'status': 'ocupado',
+            'ativo' : True,
+            },
+            3 : {
+            'tipo'  : 'luxo',
+            'valor' : 45.50,
+            'status': 'livre',
+            'ativo' : True,
+            },
+        }
+    arq_suites = open('suites.txt','wt',encoding="utf-8")
+    for num, dados in suites.items() :
+        arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
+    arq_suites.close()
 
 hospedagens = {}
 try : 
-  arq_hospedagens = open('hospedagens.txt','rt',encoding="utf-8")
-  for linha in arq_hospedagens :
-    linha = linha.strip()
-    if linha: 
-      dados = linha.split(',')
-      num = int(dados[0])
-      suite = int(dados[1])
-      entrada = datetime.fromisoformat(dados[2])
-      cpf = int(dados[3])
-      status = dados[4]
-      if dados[4] == 'fechado':
-        saida = datetime.fromisoformat(dados[5])
-        valor_t = float(dados[6])
-        hospedagens[num] = {
-          'suite' : suite,
-          'entrada' : entrada,
-          'cpf' : cpf,
-          'status' : status,
-          'saida' : saida,
-          'valor_t' : valor_t,
-             }
-      else:
-        hospedagens[num] = {
-          'suite' : suite,
-          'entrada' : entrada,
-          'cpf' : cpf,
-          'status' : status,
-           }
-  arq_hospedagens.close()
+        arq_hospedagens = open('hospedagens.txt','rt',encoding="utf-8")
+        for linha in arq_hospedagens :
+            linha = linha.strip()
+            if linha: 
+                dados = linha.split(',')
+                num = int(dados[0])
+                suite = int(dados[1])
+                entrada = datetime.fromisoformat(dados[2])
+                cpf = int(dados[3])
+                status = dados[4]
+                if dados[4] == 'fechado':
+                    saida = datetime.fromisoformat(dados[5])
+                    valor_t = float(dados[6])
+                    hospedagens[num] = {
+                    'suite' : suite,
+                    'entrada' : entrada,
+                    'cpf' : cpf,
+                    'status' : status,
+                    'saida' : saida,
+                    'valor_t' : valor_t,
+                        }
+                else:
+                    hospedagens[num] = {
+                    'suite' : suite,
+                    'entrada' : entrada,
+                    'cpf' : cpf,
+                    'status' : status,
+                    }
+        arq_hospedagens.close()
 
 except:
-  hospedagens = {
-    1 : {
-      'suite' : 1, 
-      'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
-      'cpf' :  10531031403 ,
-      'status' :  'em aberto',
-      },
-    2 : {
-      'suite' : 2, 
-      'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
-      'cpf' :  10531031403 ,
-      'status' :  'em aberto',
-      },
-  }
-  arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
-  for num,dados in hospedagens.items() : 
-    if dados['status'] == 'fechado' :
-      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
-    else :
-      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
-  arq_hospedagens.close()
+    hospedagens = {
+        1 : {
+        'suite' : 1, 
+        'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
+        'cpf' :  10531031403 ,
+        'status' :  'em aberto',
+        },
+        2 : {
+        'suite' : 2, 
+        'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
+        'cpf' :  10531031403 ,
+        'status' :  'em aberto',
+            },
+        }
+    arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
+    for num,dados in hospedagens.items() : 
+        if dados['status'] == 'fechado' :
+            arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
+        else :
+            arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
+    arq_hospedagens.close()
 
 produtos = {}
 try : 
-  arq_produtos = open('produtos.txt','rt', encoding="utf-8")
-  for linha in arq_produtos : 
-    linha = linha.strip()
-    if linha :
-      dados = linha.split(',')
-      num = int(dados[0])
-      produto = dados[1]
-      estoque = int(dados[2])
-      valor = float(dados[3])
-      ativo = dados[4]
-      produtos[num] = {
-        'produto' : produto, 
-        'estoque' : estoque,
-        'valor' : valor,
-        'ativo' : ativo
-        }
-  arq_produtos.close()
+        arq_produtos = open('produtos.txt','rt', encoding="utf-8")
+        for linha in arq_produtos : 
+            linha = linha.strip()
+            if linha :
+                dados = linha.split(',')
+                num = int(dados[0])
+                produto = dados[1]
+                estoque = int(dados[2])
+                valor = float(dados[3])
+                ativo = dados[4] == "True"
+                produtos[num] = {
+                    'produto' : produto, 
+                    'estoque' : estoque,
+                    'valor' : valor,
+                    'ativo' : ativo
+                        }
+        arq_produtos.close()
 
 except : 
-  produtos = {
-  1 : {
-    'produto' : 'vinho', 
-    'estoque' : 20 ,
-    'valor' :  50.0 ,
-    'ativo' : True ,
-    },
-  2 : {
-    'produto' : 'lubrificante',
-    'estoque' : 15,
-    'valor' :  5.5,
-    'ativo' : True ,
-    },
-  3 : {
-    'produto' : 'camisinha',
-    'estoque' : 15,
-    'valor' :  5.5,
-    'ativo' : True ,
-    },
-  }
-  arq_produtos = open('produtos.txt','wt',encoding="utf-8")
-  for num, dados in produtos.items() :
-      arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
-  arq_produtos.close()
+    produtos = {
+        1 : {
+            'produto' : 'vinho', 
+            'estoque' : 20 ,
+            'valor' :  50.0 ,
+            'ativo' : True ,
+            },
+        2 : {
+            'produto' : 'lubrificante',
+            'estoque' : 15,
+            'valor' :  5.5,
+            'ativo' : True ,
+            },
+        3 : {
+            'produto' : 'camisinha',
+            'estoque' : 15,
+            'valor' :  5.5,
+            'ativo' : True ,
+            },
+            }
+    arq_produtos = open('produtos.txt','wt',encoding="utf-8")
+    for num, dados in produtos.items() :
+        arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
+    arq_produtos.close() 
 
 pedidos = {}
 try : 
-  arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")
-  for linha in arq_pedidos : 
-    linha = linha.strip()
-    if linha :
-      dados = linha.split(',')
-      num = int(dados[0])
-      hospedagem = int(dados[1])
-      produto = int(dados[2])
-      quantidade = int(dados[3])
-      status = dados[4]
-      ativo = dados[5]
-      pedidos[num] = {
-        'hospedagem' : hospedagem , 
-        'produto' : produto,
-        'quantidade' : quantidade,
-        'status' : status,
-        'ativo' : ativo,
-        }
-  arq_pedidos.close()
+        arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")
+        for linha in arq_pedidos : 
+            linha = linha.strip()
+            if linha :
+                dados = linha.split(',')
+                num = int(dados[0])
+                hospedagem = int(dados[1])
+                produto = int(dados[2])
+                quantidade = int(dados[3])
+                status = dados[4]
+                ativo = dados[5] == "True"
+                pedidos[num] = {
+                    'hospedagem' : hospedagem , 
+                    'produto' : produto,
+                    'quantidade' : quantidade,
+                    'status' : status,
+                    'ativo' : ativo,
+                    }
+        arq_pedidos.close()
 
 except : 
-  pedidos = { 
-  1 : {
-    'hospedagem' : 1,
-    'produto' : 2,
-    'quantidade' : 1,
-    'status' : 'em aberto',
-    'ativo' : True,
-    },
-  2 : {
-    'hospedagem' : 1,
-    'produto' : 1,
-    'quantidade' : 4,
-    'status' : 'em aberto',
-    'ativo' : True,
-    },
-  3 : {
-    'hospedagem' : 2,
-    'produto' : 1,
-    'quantidade' : 4,
-    'status' : 'em aberto',
-    'ativo' : True,
-    },
-  4 : {
-    'hospedagem' : 2,
-    'produto' : 1,
-    'quantidade' : 4,
-    'status' : 'em aberto',
-    'ativo' : True,
-    },
-  5 : {
-    'hospedagem' : 2,
-    'produto' : 1,
-    'quantidade' : 4,
-    'status' : 'em aberto',
-    'ativo' : True,
-    },
-  }
-  arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
-  for num, dados in pedidos.items() :
-      arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
-  arq_pedidos.close()
+        pedidos = { 
+        1 : {
+            'hospedagem' : 1,
+            'produto' : 2,
+            'quantidade' : 1,
+            'status' : 'em aberto',
+            'ativo' : True,
+            },
+        2 : {
+            'hospedagem' : 1,
+            'produto' : 1,
+            'quantidade' : 4,
+            'status' : 'em aberto',
+            'ativo' : True,
+            },
+        3 : {
+            'hospedagem' : 2,
+            'produto' : 1,
+            'quantidade' : 4,
+            'status' : 'em aberto',
+            'ativo' : True,
+            },
+        4 : {
+            'hospedagem' : 2,
+            'produto' : 1,
+            'quantidade' : 4,
+            'status' : 'em aberto',
+            'ativo' : True,
+            },
+        5 : {
+            'hospedagem' : 2,
+            'produto' : 1,
+            'quantidade' : 4,
+            'status' : 'em aberto',
+            'ativo' : True,
+                    },
+                }
+        arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
+        for num, dados in pedidos.items() :
+            arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
+        arq_pedidos.close()
 
 
 resp = ''
@@ -346,7 +346,7 @@ while resp != 0 :
           print()
           num = int(input('digite o numero da suíte que deseja editar : '))
           if num in suites :
-            if suites[num]['status'] != "ocupado" or suites[num]['ativo'] :
+            if suites[num]['status'] != "ocupado" and suites[num]['ativo'] :
                 tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
                 while tipo_s not in [1,2,3] :
                   print('numero invalido, escolha um numero valido')
@@ -488,7 +488,7 @@ while resp != 0 :
               print(f'ENTRADA -> {dados['entrada']}')
               print(f'CPF -> {dados['cpf']}')
               print(f'STATUS -> {dados['status']}')
-              if dados[3] == 'fechado' :
+              if dados['status'] == 'fechado' :
                 print(f'SAÍDA -> {dados['saida']}')
                 print(f'VALOR TOTAL -> R${dados['valor_t']:.2f}')
             print()
@@ -510,7 +510,7 @@ while resp != 0 :
               print(f'ENTRADA -> {hospedagens[num]['entrada']}')
               print(f'CPF -> {hospedagens[num]['cpf']}')
               print(f'STATUS -> {hospedagens[num]['status']}')
-              if hospedagens[num][3] == 'fechado' :
+              if hospedagens[num]['status'] == 'fechado' :
                 print(f'SAÍDA -> {hospedagens[num]['saida']}')
                 print(f'VALOR TOTAL -> R${hospedagens[num]['valor_t']:.2f}')
               print()
@@ -529,7 +529,7 @@ while resp != 0 :
           if num in hospedagens:
             saida = datetime.now()
             print()
-            hospedagens[num].append(saida)
+            hospedagens[num]['saida'] = saida
             print()
             print(f'☾. numero -> {num}')
             print(f'ָ☾. suíte -> {hospedagens[num]['suite']}')
@@ -556,7 +556,7 @@ while resp != 0 :
             if resp4 in 'Ss' :
               suites[suite]['status'] = 'livre'
               hospedagens[num]['status'] = 'fechado'
-              hospedagens[num].append(valor_t)
+              hospedagens[num]['valor_t'] = valor_t
               for i in range(1,len(pedidos)+1) :
                 if pedidos[i]['hospedagem'] == num and pedidos[i]['ativo']:
                   pedidos[i]['status'] = 'fechado'
@@ -872,14 +872,14 @@ while resp != 0 :
       print()
       print('-ˋˏ✄┈┈┈┈ MÓDULO DE RELATORIO -ˋˏ✄┈┈┈┈')
       print()
-      print('1 ╰┈➤ relatorio de suites ocupadas')
+      print('1 ╰┈➤ relatorio de suites ')
       print('2 ╰┈➤ relatorio de hospedagens  ')
-      print('3 ╰┈➤ relatorio de pedidos ')
-      print('4 ╰┈➤ relatorio de faturamento ')
-      print('5 ╰┈➤ relatorio de estoque ')
+      print('3 ╰┈➤ relatorio de consumo ')
+      print('4 ╰┈➤ relatorio de pedidos ')
       print('0 ╰┈➤ voltar ')
       print()
       resp2 = int(input('🤍ྀི digite o numero da operação : '))
+    
   
     # módulo de informação 
 
@@ -897,19 +897,20 @@ while resp != 0 :
 print()
 print('········· FIM DO PROGRAMA ·········')
 
-   # salvamento de dados   
-
+   # salvamento de dados  
+ 
 arq_suites = open('suites.txt','wt',encoding="utf-8")
 for num, dados in suites.items() :
     arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
 arq_suites.close()
+ 
 
 arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
 for num,dados in hospedagens.items() : 
   if dados['status'] == 'fechado' :
-    arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
+      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
   else :
-    arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
+      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
 arq_hospedagens.close()
 
 arq_produtos = open('produtos.txt','wt',encoding="utf-8")
