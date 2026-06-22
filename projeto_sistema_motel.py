@@ -1,32 +1,6 @@
 import os , time 
 from datetime import datetime
-def verifica_cpf(cpf):
-    cpf = cpf.replace('.', '')
-    cpf = cpf.replace('-', '')
-    cpf = cpf.replace(' ', '')
-    if len(cpf) != 11:
-        return False
-    for caractere in cpf:
-        if caractere < '0' or caractere > '9':
-            return False
-    if cpf == cpf[0] * 11:
-        return False
-    soma = 0
-    for i in range(9):
-        soma += int(cpf[i]) * (10 - i)
-    d1 = 11 - (soma % 11)
-    if d1 >= 10:
-        d1 = 0
-    soma = 0
-    for i in range(10):
-        soma += int(cpf[i]) * (11 - i)
-    d2 = 11 - (soma % 11)
-    if d2 >= 10:
-        d2 = 0
-    if d1 == int(cpf[9]) and d2 == int(cpf[10]):
-        return True
-    return False
-
+from verifica import verifica_cpf, verifica_int
 
     # recuperando dados dos arquivos
 
@@ -269,7 +243,7 @@ while resp != 0 :
     print('0 ❥ sair ')
     print()
     resp = input('🤍ྀི   digite sua resposta : ')
-    while not resp.isnumeric():
+    while not verifica_int(resp):
       print()
       print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
       print()
@@ -294,7 +268,13 @@ while resp != 0 :
         print('4 ☪︎  excluir suíte   ☪︎')
         print('0 ☪︎     voltar       ☪︎')
         print()
-        resp2 = int(input('🤍ྀི  digite o numero da operação : '))
+        resp2 = input('🤍ྀི  digite o numero da operação : ')
+        while not verifica_int(resp2):
+          print()
+          print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+          print()
+          resp = input('🤍ྀི   digite sua resposta : ')
+        resp2 = int(resp2)
         os.system('cls')
         os.system('clear')
         if resp2 == 1 :
@@ -333,7 +313,13 @@ while resp != 0 :
           print('1 ☪︎ listar todas')
           print('2 ☪︎ buscar por numero')
           print()
-          resp3 = int(input('🤍ྀི  digite o numero da operação : '))
+          resp3 = input('🤍ྀི  digite o numero da operação : ')
+          while not verifica_int(resp3):
+            print()
+            print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+            print()
+            resp3 = input('🤍ྀི   digite sua resposta : ')
+          resp3 = int(resp3)
           if resp3 == 1 :
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
@@ -355,7 +341,13 @@ while resp != 0 :
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ PESQUISA DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
             print()
-            num = int(input('digite o numero da suíte que deseja consultar : '))
+            num = input('digite o numero da suíte que deseja consultar : ')
+            while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero da suíte que deseja consultar : ')
+            num = int(num)
             if num in suites and suites[num]['ativo'] :
               print()
               print(f'☪ numero -> {num}')
@@ -372,7 +364,13 @@ while resp != 0 :
           print()
           print('✩₊˚.⋆☾⋆⁺₊✧ EDIÇÃO DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
           print()
-          num = int(input('digite o numero da suíte que deseja editar : '))
+          num = input('digite o numero da suíte que deseja editar : ')
+          while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero da suíte que deseja editar : ')
+          num = int(num)
           if num in suites :
             if suites[num]['status'] != "ocupado" and suites[num]['ativo'] :
                 tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
@@ -408,7 +406,13 @@ while resp != 0 :
           print()
           print('✩₊˚.⋆☾⋆⁺₊✧ EXCLUIR SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
           print()
-          num = int(input('digite o numero da suíte que deseja excluir : '))
+          num = input('digite o numero da suíte que deseja excluir : ')
+          while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero da suíte que deseja excluir : ')
+          num = int(num)
           print()
           if num in suites and suites[num]['ativo'] :
                 if suites[num]['status'] != "ocupado" :
@@ -447,7 +451,13 @@ while resp != 0 :
         print('3 ࣪ ִֶָ☾.   Fazer check-out    ࣪ ִֶָ☾.')
         print('0 ࣪ ִֶָ☾.       voltar         ࣪ ִֶָ☾.')
         print()
-        resp2 = int(input('🤍ྀི  digite o numero da operação : ')) 
+        resp2 = input('🤍ྀི  digite o numero da operação : ')
+        while not verifica_int(resp2):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp2 = input('🤍ྀི  digite o numero da operação : ')
+        resp2 = int(resp2)
         os.system('cls')
         os.system('clear')
 
@@ -470,10 +480,23 @@ while resp != 0 :
               num = len(hospedagens)+1
               print(f'NUMERO DA SUA HOSPEDAGEM -> {num}')
               print()
-              suite = int(input('ָ☾. digite o numero da suite que deseja : '))
+              suite = input('ָ☾. digite o numero da suite que deseja : ')
+              while not verifica_int(suite):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                suite = input('🤍ྀི  digite o numero da suite que deseja : ')
+              suite = int(suite)
+
               while suite not in suites or (suites[suite]['status'] != "livre" and suites[suite]['ativo'] == False) :
                   print('suíte invalida, digite uma suíte disponivel.')
-                  suite = int(input('ָ☾. digite o numero da suite que deseja : '))
+                  suite = input('ָ☾. digite o numero da suite que deseja : ')
+                  while not verifica_int(suite):
+                    print()
+                    print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                    print()
+                    suite = input('🤍ྀི  digite o numero da suite que deseja : ')
+                  suite = int(suite)
               cpf = input('ָ☾. digite o seu CPF : ')
               while verifica_cpf(cpf) == False :
                 print('      ! CPF INVALIDA !')
@@ -505,7 +528,13 @@ while resp != 0 :
           print('1 ָ☾. listar todas')
           print('2 ָ☾. buscar por numero')
           print()
-          resp3 = int(input('🤍ྀི  digite o numero da operação : '))
+          resp3 = input('🤍ྀི  digite o numero da operação : ')
+          while not verifica_int(resp3):
+            print()
+            print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+            print()
+            resp3 = input('🤍ྀི  digite o numero da operação : ')
+          resp3 = int(resp3)
           if resp3 == 1 :
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE HOSPEDAGEM ✩₊˚.⋆☾⋆⁺₊✧')
@@ -531,7 +560,13 @@ while resp != 0 :
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ PESQUISA DE HOSPEDAGENS ✩₊˚.⋆☾⋆⁺₊✧')
             print()
-            num = int(input('digite o numero da hospedagem que deseja consultar : '))
+            num = input('digite o numero da hospedagem que deseja consultar : ')
+            while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+            resp3 = int(resp3)
             if num in hospedagens :
               print()
               print('☪-☪'*25)
@@ -557,7 +592,13 @@ while resp != 0 :
           print()
           print('✩₊˚.⋆☾⋆⁺₊✧ MÓDULO DE CHECK-OUT ✩₊˚.⋆☾⋆⁺₊✧')
           print()
-          num = int(input('digite o numero da hospedagem : '))
+          num = input('digite o numero da hospedagem : ')
+          while not verifica_int(num):
+            print()
+            print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+            print()
+            num = input('🤍ྀི  digite o numero da hospedagem : ')
+          num = int(num)
           if num in hospedagens:
             saida = datetime.now()
             print()
@@ -618,7 +659,13 @@ while resp != 0 :
         print('4 𓊯     excluir produto     𓊯')
         print('0 𓊯         voltar          𓊯')
         print()
-        resp2 = int(input('🤍ྀི  digite o numero da operação : '))
+        resp2 = input('🤍ྀི  digite o numero da operação : ')
+        while not verifica_int(resp2):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp2 = input('🤍ྀི  digite o numero da operação : ')
+        resp2 = int(resp2)
         os.system('cls')
         os.system('clear')
         if resp2 == 1 :
@@ -629,7 +676,13 @@ while resp != 0 :
           print(f'NUMERO DO PRODUTO -> {num}')
           print()
           produto = input('𓊯 digite o nome do produto para cadastrar : ')
-          estoque = int(input('𓊯 digite a quantidade que tem no estoque : '))
+          estoque = input('𓊯 digite a quantidade que tem no estoque : ')
+          while not verifica_int(estoque):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              estoque = input('🤍ྀི  digite a quantidade que tem no estoque : ')
+          estoque = int(estoque)
           valor = float(input('𓊯 digite o preço do produto : '))
           produtos[num] = {
         'produto' : produto, 
@@ -647,7 +700,13 @@ while resp != 0 :
           print('1 ָ☾. listar todas')
           print('2 ָ☾. buscar por numero')
           print()
-          resp3 = int(input('🤍ྀི  digite o numero da operação : '))
+          resp3 = input('🤍ྀི  digite o numero da operação : ')
+          while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+          resp3 = int(resp3)
           if resp3 == 1 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
@@ -671,7 +730,13 @@ while resp != 0 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
-            num = int(input('digite o numero do produto que deseja consultar : '))
+            num = input('digite o numero do produto que deseja consultar : ')
+            while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero do produto que deseja consultar : ')
+            num = int(num)
             if num in produtos and produtos[num]['ativo'] :
               print()
               print(f'produto numero -> {num}')
@@ -689,7 +754,13 @@ while resp != 0 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  EDIÇÃO DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
-            num = int(input('digite o numero do produto que deseja editar : '))
+            num = input('digite o numero do produto que deseja editar : ')
+            while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero do produto que deseja consultar : ')
+            num = int(num)
             if num in produtos and produtos[num]['ativo'] :
                   print()
                   print(f'produto numero -> {num}')
@@ -699,7 +770,13 @@ while resp != 0 :
                   print(f'3 𓊯 preço -> R$ {produtos[num]['valor']}')
                   print()
                   produto = input('𓊯 digite o novo nome do produto para cadastrar : ')
-                  estoque = int(input('𓊯 digite a nova quantidade que tem no estoque : '))
+                  estoque = input('𓊯 digite a nova quantidade que tem no estoque : ')
+                  while not verifica_int(estoque):
+                    print()
+                    print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                    print()
+                    estoque = input('🤍ྀི  digite a nova quantidade que tem no estoque : ')
+                  estoque = int(estoque)
                   valor = float(input('𓊯 digite o novo preço do produto : '))
                   produtos[num] = {
                   'produto' : produto, 
@@ -717,7 +794,13 @@ while resp != 0 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  EXCLUIR PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
-            num = int(input('digite o numero do produto que deseja excluir : '))
+            num = input('digite o numero do produto que deseja excluir : ')
+            while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero do produto que deseja excluir : ')
+            num = int(num)
             if num in produtos :
                   print()
                   print(f'produto numero -> {num}')
@@ -753,7 +836,13 @@ while resp != 0 :
           print('3 𓊯    cancelar pedidos     𓊯')
           print('0 𓊯         voltar          𓊯')
           print()
-          resp2 = int(input('🤍ྀི  digite o numero da operação : '))
+          resp2 = input('🤍ྀི  digite o numero da operação : ')
+          while not verifica_int(resp2):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp2 = input('🤍ྀི  digite o numero da operação : ')
+          resp2 = int(resp2)
           os.system('cls')
           os.system('clear')
           if resp2 == 1 :
@@ -763,7 +852,13 @@ while resp != 0 :
             num = max(pedidos.keys()) + 1
             print(f'NUMERO DO PEDIDO -> {num}')
             print()
-            hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
+            hospedagem = input('𓊯 digite o numero da hospedagem : ')
+            while not verifica_int(hospedagem):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              hospedagem = input('🤍ྀི  digite o numero da hospedagem : ')
+            hospedagem = int(hospedagem)
             while hospedagem not in hospedagens or hospedagens[hospedagem]['status'] == 'fechado':
               print('! HOSPEDAGEM INVALIDDA !')
               hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
@@ -771,8 +866,20 @@ while resp != 0 :
             for chave, dados in produtos.items():
               print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
             print()
-            produto = int(input('𓊯 digite o numero do produto : '))
-            quantidade = int(input('𓊯 digite a quantidade que deseja : '))
+            produto = input('𓊯 digite o numero do produto : ')
+            while not verifica_int(produto):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              produto = input('🤍ྀི  digite o numero do produto : ')
+            produto = int(produto)
+            quantidade = input('𓊯 digite a quantidade que deseja : ')
+            while not verifica_int(quantidade):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              quantidade = input('🤍ྀི  digite o numero do produto : ')
+            quantidade = int(quantidade)
             pedidos[num] = {
             'hospedagem' : hospedagem , 
             'produto'    : produto,
@@ -792,7 +899,13 @@ while resp != 0 :
             print('2 ָ☾. buscar por hospedagem')
             print('3 ָ☾. buscar por pedido')
             print()
-            resp3 = int(input('🤍ྀི  digite o numero da operação : '))
+            resp3 = input('🤍ྀི  digite o numero da operação : ')
+            while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+            resp3 = int(resp3)
 
             if resp3 == 1 :
               print()
@@ -818,7 +931,13 @@ while resp != 0 :
               print()
               print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
               print()
-              num = int(input('digite o numero da hospedagem que deseja consultar os pedidos : '))
+              num = input('digite o numero da hospedagem que deseja consultar os pedidos : ')
+              while not verifica_int(num):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                num = input('🤍ྀི  digite o numero da hospedagem que deseja consultar os pedidos : ')
+              num = int(num)
               if num not in hospedagens :
                 print()
                 print('! HOSPDAGEM NÃO ENCONTRADA !')
@@ -853,7 +972,13 @@ while resp != 0 :
               print()
               print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
               print()
-              num = int(input('digite o numero do pedido que deseja consultar : '))
+              num = input('digite o numero do pedido que deseja consultar : ')
+              while not verifica_int(num):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                num = input('🤍ྀི  digite o numero do pedido que deseja consultar : ')
+              num = int(num)
               if num in pedidos and pedidos[num]['ativo'] :
                   print()
                   print(f'pedido numero -> {num}')
@@ -872,7 +997,13 @@ while resp != 0 :
             print()
             print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CANCELAR PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
             print()
-            num = int(input('digite o numero do pedido que deseja cancelar : '))
+            num = input('digite o numero do pedido que deseja cancelar : ')
+            while not verifica_int(num):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                num = input('🤍ྀི  digite o numero do pedido que deseja cancelar : ')
+            num = int(num)
             if num in pedidos and pedidos[num]['ativo'] : 
               if pedidos[num]['status'] == 'em aberto' :
                   print()
