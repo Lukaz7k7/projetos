@@ -1,56 +1,11 @@
 import os , time 
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
+from dados import recupera_suites , salva_suites
 
     # recuperando dados dos arquivos
 
-suites = {}
-try : 
-        arq_suites = open('suites.txt','rt', encoding="utf-8")
-        for linha in arq_suites : 
-            linha = linha.strip()
-            if linha :
-                dados = linha.split(',')
-                num = int(dados[0])
-                tipo = dados[1]
-                valor = float(dados[2])
-                status = dados[3]
-                ativo = dados[4] == "True"
-                suites[num] = {
-                    'tipo' : tipo, 
-                    'valor' : valor,
-                    'status' : status,
-                    'ativo' : ativo
-                    }
-        arq_suites.close()
-
-except : 
-    suites = {
-
-            1 : {
-            'tipo' : 'premiun',
-            'valor' : 69.0,
-            'status': 'ocupado',
-            'ativo' : True,
-            },
-
-            2 : {
-            'tipo'  : 'simples',
-            'valor' : 24.0,
-            'status': 'ocupado',
-            'ativo' : True,
-            },
-            3 : {
-            'tipo'  : 'luxo',
-            'valor' : 45.50,
-            'status': 'livre',
-            'ativo' : True,
-            },
-        }
-    arq_suites = open('suites.txt','wt',encoding="utf-8")
-    for num, dados in suites.items() :
-        arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
-    arq_suites.close()
+suites = recupera_suites()
 
 hospedagens = {}
 try : 
@@ -1074,10 +1029,7 @@ print('········· FIM DO PROGRAMA ·········')
 
    # salvamento de dados  
  
-arq_suites = open('suites.txt','wt',encoding="utf-8")
-for num, dados in suites.items() :
-    arq_suites.write(f'{num},{dados['tipo']},{dados['valor']},{dados['status']},{dados['ativo']}\n')
-arq_suites.close()
+salva_suites(suites)
  
 
 arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
