@@ -126,8 +126,9 @@ def salva_hospedagens(hospedagens):
             arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
     arq_hospedagens.close()
 
-
+ 
 def recupera_produtos() :
+    produtos = {}
     try : 
         arq_produtos = open('produtos.txt','rt', encoding="utf-8")
         for linha in arq_produtos : 
@@ -138,7 +139,7 @@ def recupera_produtos() :
                 produto = dados[1]
                 estoque = int(dados[2])
                 valor = float(dados[3])
-                ativo = dados[4]
+                ativo = dados[4] == "True"
                 produtos[num] = {
                     'produto' : produto, 
                     'estoque' : estoque,
@@ -172,8 +173,9 @@ def recupera_produtos() :
         for num, dados in produtos.items() :
             arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
         arq_produtos.close()
+    return produtos
 
-def salva_produtos() :
+def salva_produtos(produtos) :
     arq_produtos = open('produtos.txt','wt',encoding="utf-8")
     for num, dados in produtos.items() :
         arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
@@ -181,6 +183,7 @@ def salva_produtos() :
 
 
 def recupera_pedidos() : 
+    pedidos = {}
     try : 
         arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")
         for linha in arq_pedidos : 
@@ -192,7 +195,7 @@ def recupera_pedidos() :
                 produto = int(dados[2])
                 quantidade = int(dados[3])
                 status = dados[4]
-                ativo = dados[5]
+                ativo = dados[5] == 'ativo'
                 pedidos[num] = {
                     'hospedagem' : hospedagem , 
                     'produto' : produto,
@@ -244,8 +247,9 @@ def recupera_pedidos() :
             for num, dados in pedidos.items() :
                 arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
             arq_pedidos.close()
+    return pedidos
 
-def salva_pedidos() :
+def salva_pedidos(pedidos) :
     arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
     for num, dados in pedidos.items() :
         arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')

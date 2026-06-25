@@ -1,7 +1,7 @@
 import os , time 
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
-from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens
+from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
 
     # recuperando dados dos arquivos
 
@@ -9,117 +9,9 @@ suites = recupera_suites()
 
 hospedagens = recupera_hospedagens()
 
-produtos = {}
-try : 
-        arq_produtos = open('produtos.txt','rt', encoding="utf-8")
-        for linha in arq_produtos : 
-            linha = linha.strip()
-            if linha :
-                dados = linha.split(',')
-                num = int(dados[0])
-                produto = dados[1]
-                estoque = int(dados[2])
-                valor = float(dados[3])
-                ativo = dados[4] == "True"
-                produtos[num] = {
-                    'produto' : produto, 
-                    'estoque' : estoque,
-                    'valor' : valor,
-                    'ativo' : ativo
-                        }
-        arq_produtos.close()
+produtos = recupera_produtos()
 
-except : 
-    produtos = {
-        1 : {
-            'produto' : 'vinho', 
-            'estoque' : 20 ,
-            'valor' :  50.0 ,
-            'ativo' : True ,
-            },
-        2 : {
-            'produto' : 'lubrificante',
-            'estoque' : 15,
-            'valor' :  5.5,
-            'ativo' : True ,
-            },
-        3 : {
-            'produto' : 'camisinha',
-            'estoque' : 15,
-            'valor' :  5.5,
-            'ativo' : True ,
-            },
-            }
-    arq_produtos = open('produtos.txt','wt',encoding="utf-8")
-    for num, dados in produtos.items() :
-        arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
-    arq_produtos.close() 
-
-pedidos = {}
-try : 
-        arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")
-        for linha in arq_pedidos : 
-            linha = linha.strip()
-            if linha :
-                dados = linha.split(',')
-                num = int(dados[0])
-                hospedagem = int(dados[1])
-                produto = int(dados[2])
-                quantidade = int(dados[3])
-                status = dados[4]
-                ativo = dados[5] == "True"
-                pedidos[num] = {
-                    'hospedagem' : hospedagem , 
-                    'produto' : produto,
-                    'quantidade' : quantidade,
-                    'status' : status,
-                    'ativo' : ativo,
-                    }
-        arq_pedidos.close()
-
-except : 
-        pedidos = { 
-        1 : {
-            'hospedagem' : 1,
-            'produto' : 2,
-            'quantidade' : 1,
-            'status' : 'em aberto',
-            'ativo' : True,
-            },
-        2 : {
-            'hospedagem' : 1,
-            'produto' : 1,
-            'quantidade' : 4,
-            'status' : 'em aberto',
-            'ativo' : True,
-            },
-        3 : {
-            'hospedagem' : 2,
-            'produto' : 1,
-            'quantidade' : 4,
-            'status' : 'em aberto',
-            'ativo' : True,
-            },
-        4 : {
-            'hospedagem' : 2,
-            'produto' : 1,
-            'quantidade' : 4,
-            'status' : 'em aberto',
-            'ativo' : True,
-            },
-        5 : {
-            'hospedagem' : 2,
-            'produto' : 1,
-            'quantidade' : 4,
-            'status' : 'em aberto',
-            'ativo' : True,
-                    },
-                }
-        arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
-        for num, dados in pedidos.items() :
-            arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
-        arq_pedidos.close()
-
+pedidos = recupera_pedidos()
 
 resp = ''
 while resp != 0 :
@@ -980,12 +872,6 @@ salva_suites(suites)
  
 salva_hospedagens(hospedagens)
 
-arq_produtos = open('produtos.txt','wt',encoding="utf-8")
-for num, dados in produtos.items() :
-    arq_produtos.write(f'{num},{dados['produto']},{dados['estoque']},{dados['valor']},{dados['ativo']}\n')
-arq_produtos.close()
+salva_produtos(produtos)
 
-arq_pedidos = open('pedidos.txt','wt',encoding="utf-8")
-for num, dados in pedidos.items() :
-    arq_pedidos.write(f'{num},{dados['hospedagem']},{dados['produto']},{dados['quantidade']},{dados['status']},{dados['ativo']}\n')
-arq_pedidos.close()
+salva_pedidos(pedidos)
