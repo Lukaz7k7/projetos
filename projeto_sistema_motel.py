@@ -2,7 +2,7 @@ import os , time
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
-from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites
+from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites
 
     # recuperando dados dos arquivos
 
@@ -85,46 +85,8 @@ while resp != 0 :
             pesquisa_suites(suites)
 
         elif resp2 == 3  :
-          print()
-          print('✩₊˚.⋆☾⋆⁺₊✧ EDIÇÃO DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
-          print()
-          num = input('digite o numero da suíte que deseja editar : ')
-          while not verifica_int(num):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              num = input('🤍ྀི  digite o numero da suíte que deseja editar : ')
-          num = int(num)
-          if num in suites :
-            if suites[num]['status'] != "ocupado" and suites[num]['ativo'] :
-                tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
-                while tipo_s not in [1,2,3] :
-                  print('numero invalido, escolha um numero valido')
-                  tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
-                match tipo_s :
-                  case 1:
-                    tipo_s = 'simples'
-                  case 2 :
-                    tipo_s = 'luxo'
-                  case 3 :
-                    tipo_s = 'premium'
 
-                valor_s = float(input('☪ valor por hora : R$ '))
-                suites[num] = suites[numero_s] = {
-                        'tipo' : tipo_s, 
-                        'valor': valor_s,
-                        'status': 'livre',
-                        'ativo': True
-                      }
-                print('suíte editada com suscesso')
-                input('pres ENTER para continuar....')
-            else:
-                print(f'suíte numero {num} não pode ser editada pois está em uso ou desativada')
-                input('pres ENTER para continuar....')
-          else :
-                print(f'suíte numero {num} não encontrada')
-                input('pres ENTER para continuar....')
-          
+          edição_suites(suites)
                 
         elif resp2 == 4 :
           print()
