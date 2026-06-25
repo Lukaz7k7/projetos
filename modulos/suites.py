@@ -10,6 +10,14 @@ def menu_suites():
     print('4 ☪︎  excluir suíte   ☪︎')
     print('0 ☪︎     voltar       ☪︎')
     print()
+    resp2 = input('🤍ྀི  digite o numero da operação : ')
+    while not verifica_int(resp2):
+          print()
+          print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+          print()
+          resp = input('🤍ྀི   digite um numero valido : ')
+    resp2 = int(resp2)
+    return resp2
 
 def cadastrar_suites(suites):
     print()
@@ -149,4 +157,37 @@ def edição_suites(suites):
         print(f'suíte numero {num} não encontrada')
         input('pres ENTER para continuar....')
 
+def exclui_suites(suites):
+    print()
+    print('✩₊˚.⋆☾⋆⁺₊✧ EXCLUIR SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
+    print()
+    num = input('digite o numero da suíte que deseja excluir : ')
+    while not verifica_int(num):
+        print()
+        print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+        print()
+        num = input('🤍ྀི  digite o numero da suíte que deseja excluir : ')
+    num = int(num)
+    print()
+    if num in suites and suites[num]['ativo'] :
+        if suites[num]['status'] != "ocupado" :
+            print(f'☪ numero -> {num}')
+            print(f'☪ tipo -> {suites[num]['tipo']}')
+            print(f'☪ valor por hora -> {suites[num]['valor']}')
+            print(f'☪ status -> {suites[num]['status']}')
+            print()
+            respd = input('deseja mesmo deletar essa suíte ? [S/N] ')
+            if respd == 's' or respd == 'S' :
+                suites[num]['ativo'] = False 
+                print('suíte excluida com suscesso')
+                input('pres ENTER para continuar....')
+            else :
+                print('operação canselada')
+                input('pres ENTER para continuar....')
+        else :
+            print(f'suíte numero {num} não pode ser deletada pois está em uso')
+            input('pres ENTER para continuar....')
+    else : 
+        print(f'suíte numero {num} não encontrada')
+        input('pres ENTER para continuar....')
 

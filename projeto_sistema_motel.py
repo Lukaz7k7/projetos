@@ -2,7 +2,7 @@ import os , time
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
-from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites
+from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites , exclui_suites
 
     # recuperando dados dos arquivos
 
@@ -55,15 +55,7 @@ while resp != 0 :
         os.system('cls')
         os.system('clear')
 
-        menu_suites()
-
-        resp2 = input('🤍ྀི  digite o numero da operação : ')
-        while not verifica_int(resp2):
-          print()
-          print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-          print()
-          resp = input('🤍ྀི   digite um numero valido : ')
-        resp2 = int(resp2)
+        resp2 = menu_suites()
 
         os.system('cls')
         os.system('clear')
@@ -89,38 +81,8 @@ while resp != 0 :
           edição_suites(suites)
                 
         elif resp2 == 4 :
-          print()
-          print('✩₊˚.⋆☾⋆⁺₊✧ EXCLUIR SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
-          print()
-          num = input('digite o numero da suíte que deseja excluir : ')
-          while not verifica_int(num):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              num = input('🤍ྀི  digite o numero da suíte que deseja excluir : ')
-          num = int(num)
-          print()
-          if num in suites and suites[num]['ativo'] :
-                if suites[num]['status'] != "ocupado" :
-                  print(f'☪ numero -> {num}')
-                  print(f'☪ tipo -> {suites[num]['tipo']}')
-                  print(f'☪ valor por hora -> {suites[num]['valor']}')
-                  print(f'☪ status -> {suites[num]['status']}')
-                  print()
-                  respd = input('deseja mesmo deletar essa suíte ? [S/N] ')
-                  if respd == 's' or respd == 'S' :
-                    suites[num]['ativo'] = False 
-                    print('suíte excluida com suscesso')
-                    input('pres ENTER para continuar....')
-                  else :
-                    print('operação canselada')
-                    input('pres ENTER para continuar....')
-                else :
-                  print(f'suíte numero {num} não pode ser deletada pois está em uso')
-                  input('pres ENTER para continuar....')
-          else : 
-                print(f'suíte numero {num} não encontrada')
-                input('pres ENTER para continuar....')
+          
+          exclui_suites(suites)
 
     # módulo de hospedagem        
 
