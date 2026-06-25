@@ -1,4 +1,4 @@
-
+from verifica import verifica_int
 
 def menu_suites():
     print()
@@ -10,7 +10,6 @@ def menu_suites():
     print('4 ☪︎  excluir suíte   ☪︎')
     print('0 ☪︎     voltar       ☪︎')
     print()
-
 
 def cadastrar_suites(suites):
     print()
@@ -40,6 +39,22 @@ def cadastrar_suites(suites):
     print('suíte cadastrada com suscesso !')
     input('pres ENTER para continuar...')
 
+def consulta_suites():
+    print()
+    print('✩₊˚.⋆☾⋆⁺₊✧ CONSULTAR SUÍTE ✩₊˚.⋆☾⋆⁺₊✧')
+    print()
+    print('1 ☪︎ listar todas')
+    print('2 ☪︎ buscar por numero')
+    print()
+    resp3 = input('🤍ྀི  digite o numero da operação : ')
+    while not verifica_int(resp3):
+        print()
+        print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+        print()
+        resp3 = input('🤍ྀི   digite sua resposta : ')
+    resp3 = int(resp3)
+    return resp3 
+
 def listagem_suites(suites):
     print()
     print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
@@ -55,3 +70,32 @@ def listagem_suites(suites):
             print()
             print('☪-☪'*25)
 
+    print()
+    input('tecle ENTER para continuar ....')
+
+def pesquisa_suites(suites):
+    print()
+    print('✩₊˚.⋆☾⋆⁺₊✧ PESQUISA DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
+    print()
+    num = input('digite o numero da suíte que deseja consultar : ')
+    while not verifica_int(num):
+        print()
+        print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+        print()
+        num = input('🤍ྀི  digite o numero da suíte que deseja consultar : ')
+    num = int(num)
+    if num in suites and suites[num]['ativo'] :
+        print()
+        print(f'☪ numero -> {num}')
+        print(f'☪ tipo -> {suites[num]['tipo']}')
+        print(f'☪ valor por hora -> {suites[num]['valor']}')
+        print(f'☪ status -> {suites[num]['status']}')
+        print()
+        input('tecle ENTER para continuar .....')
+    else :
+        print(f'suíte numero {num} não encontrada')
+        input('pres ENTER para continuar....')
+
+
+
+        

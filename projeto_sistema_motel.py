@@ -2,7 +2,7 @@ import os , time
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
-from modulos.suites import listagem_suites, cadastrar_suites , menu_suites
+from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites
 
     # recuperando dados dos arquivos
 
@@ -56,6 +56,7 @@ while resp != 0 :
         os.system('clear')
 
         menu_suites()
+
         resp2 = input('🤍ྀི  digite o numero da operação : ')
         while not verifica_int(resp2):
           print()
@@ -68,48 +69,20 @@ while resp != 0 :
         os.system('clear')
 
         if resp2 == 1 :
+
           cadastrar_suites(suites)
 
         elif resp2 == 2 :
-          print()
-          print('✩₊˚.⋆☾⋆⁺₊✧ CONSULTAR SUÍTE ✩₊˚.⋆☾⋆⁺₊✧')
-          print()
-          print('1 ☪︎ listar todas')
-          print('2 ☪︎ buscar por numero')
-          print()
-          resp3 = input('🤍ྀི  digite o numero da operação : ')
-          while not verifica_int(resp3):
-            print()
-            print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-            print()
-            resp3 = input('🤍ྀི   digite sua resposta : ')
-          resp3 = int(resp3)
+          
+          resp3 = consulta_suites()
+
           if resp3 == 1 :
+
             listagem_suites(suites)
-            print()
-            input('tecle ENTER para continuar ....')
+            
           else : 
-            print()
-            print('✩₊˚.⋆☾⋆⁺₊✧ PESQUISA DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
-            print()
-            num = input('digite o numero da suíte que deseja consultar : ')
-            while not verifica_int(num):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              num = input('🤍ྀི  digite o numero da suíte que deseja consultar : ')
-            num = int(num)
-            if num in suites and suites[num]['ativo'] :
-              print()
-              print(f'☪ numero -> {num}')
-              print(f'☪ tipo -> {suites[num]['tipo']}')
-              print(f'☪ valor por hora -> {suites[num]['valor']}')
-              print(f'☪ status -> {suites[num]['status']}')
-              print()
-              input('tecle ENTER para continuar .....')
-            else :
-              print(f'suíte numero {num} não encontrada')
-              input('pres ENTER para continuar....')
+          
+            pesquisa_suites(suites)
 
         elif resp2 == 3  :
           print()
