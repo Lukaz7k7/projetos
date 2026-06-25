@@ -195,7 +195,7 @@ def recupera_pedidos() :
                 produto = int(dados[2])
                 quantidade = int(dados[3])
                 status = dados[4]
-                ativo = dados[5] == 'ativo'
+                ativo = dados[5] == 'True'
                 pedidos[num] = {
                     'hospedagem' : hospedagem , 
                     'produto' : produto,
