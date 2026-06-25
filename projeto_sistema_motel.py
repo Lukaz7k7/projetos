@@ -2,6 +2,7 @@ import os , time
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
+from modulos.suites import listagem_suites, cadastrar_suites , menu_suites
 
     # recuperando dados dos arquivos
 
@@ -53,52 +54,21 @@ while resp != 0 :
       while resp2 != 0 :
         os.system('cls')
         os.system('clear')
-        print()
-        print('✩₊˚.⋆☾⋆⁺₊✧ MÓDUULO DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
-        print()
-        print('1 ☪︎ cadastrar suítes ☪︎')
-        print('2 ☪︎ consultar suítes ☪︎')
-        print('3 ☪︎  editar suítes   ☪︎')
-        print('4 ☪︎  excluir suíte   ☪︎')
-        print('0 ☪︎     voltar       ☪︎')
-        print()
+
+        menu_suites()
         resp2 = input('🤍ྀི  digite o numero da operação : ')
         while not verifica_int(resp2):
           print()
           print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
           print()
-          resp = input('🤍ྀི   digite sua resposta : ')
+          resp = input('🤍ྀི   digite um numero valido : ')
         resp2 = int(resp2)
+
         os.system('cls')
         os.system('clear')
-        if resp2 == 1 :
-          print()
-          print('✩₊˚.⋆☾⋆⁺₊✧ CADASTRAR SUÍTE ✩₊˚.⋆☾⋆⁺₊✧')
-          print()
-          numero_s = max(suites.keys()) + 1
-          print(f'☪ número da suíte => {numero_s}')
-          tipo_s = int(input('☪ escolha o tipo da suite [1-simples / 2-luxo / 3-premium] : '))
-          while tipo_s not in [1,2,3] :
-            print('numero invalido, escolha um numero valido')
-            tipo_s = int(input('☪ escolha o tipo da suíte [1-simples / 2-luxo / 3-premium] : '))
-          match tipo_s :
-            case 1:
-              tipo_s = 'simples'
-            case 2 :
-              tipo_s = 'luxo'
-            case 3 :
-              tipo_s = 'premium'
 
-          valor_s = float(input('☪ informe o valor por hora : R$ '))
-          print()
-          suites[numero_s] = {
-            'tipo' : tipo_s, 
-            'valor': valor_s,
-            'status': 'livre',
-            'ativo': True
-            }
-          print('suíte cadastrada com suscesso !')
-          input('pres ENTER para continuar...')
+        if resp2 == 1 :
+          cadastrar_suites(suites)
 
         elif resp2 == 2 :
           print()
@@ -115,20 +85,7 @@ while resp != 0 :
             resp3 = input('🤍ྀི   digite sua resposta : ')
           resp3 = int(resp3)
           if resp3 == 1 :
-            print()
-            print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
-            print()
-            print('☪-☪'*25)
-            for chave, dados in suites.items() :
-              if dados['ativo']:
-                print()
-                print(f'SUÍTE NUMERO -> {chave}')
-                print(f'tipo -> {dados['tipo']}')
-                print(f'valor por hora -> R${dados['valor']}')
-                print(f'status -> {dados['status']}')
-                print()
-                print('☪-☪'*25)
-
+            listagem_suites(suites)
             print()
             input('tecle ENTER para continuar ....')
           else : 
@@ -686,16 +643,21 @@ while resp != 0 :
               print()
               quantidade = input('🤍ྀི  digite o numero do produto : ')
             quantidade = int(quantidade)
-            pedidos[num] = {
-            'hospedagem' : hospedagem , 
-            'produto'    : produto,
-            'quantidade' : quantidade,
-            'status' : 'em aberto',
-            'ativo' : True ,
-                          }
-            produtos[produto]['estoque'] = produtos[produto]['estoque'] - quantidade
-            print('pedido cadastrado com sucesso')
-            input('tecle o ENTER para continuar.....')
+            if quantidade <= produtos[produto]['estoque'] :
+              pedidos[num] = {
+              'hospedagem' : hospedagem , 
+              'produto'    : produto,
+              'quantidade' : quantidade,
+              'status' : 'em aberto',
+              'ativo' : True ,
+                            }
+              produtos[produto]['estoque'] = produtos[produto]['estoque'] - quantidade
+              print('pedido cadastrado com sucesso')
+              input('tecle o ENTER para continuar.....')
+            else :
+              print()
+              print('! ESTOQUE INSUFICIENTE PARA QUANTIDADE DO PEDIDO !')
+              input('tecle o ENTER para continuar.....')
         
           elif resp2 == 2 :
             print()

@@ -32,6 +32,7 @@ def verifica_int(x):
 
     except :
         return False
+        
 
 def verifica_float(x):
     try:
