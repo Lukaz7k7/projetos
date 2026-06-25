@@ -1,66 +1,13 @@
 import os , time 
 from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
-from dados import recupera_suites , salva_suites
+from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens
 
     # recuperando dados dos arquivos
 
 suites = recupera_suites()
 
-hospedagens = {}
-try : 
-        arq_hospedagens = open('hospedagens.txt','rt',encoding="utf-8")
-        for linha in arq_hospedagens :
-            linha = linha.strip()
-            if linha: 
-                dados = linha.split(',')
-                num = int(dados[0])
-                suite = int(dados[1])
-                entrada = datetime.fromisoformat(dados[2])
-                cpf = dados[3]
-                status = dados[4]
-                if dados[4] == 'fechado':
-                    saida = datetime.fromisoformat(dados[5])
-                    valor_t = float(dados[6])
-                    hospedagens[num] = {
-                    'suite' : suite,
-                    'entrada' : entrada,
-                    'cpf' : cpf,
-                    'status' : status,
-                    'saida' : saida,
-                    'valor_t' : valor_t,
-                        }
-                else:
-                    hospedagens[num] = {
-                    'suite' : suite,
-                    'entrada' : entrada,
-                    'cpf' : cpf,
-                    'status' : status,
-                    }
-        arq_hospedagens.close()
-
-except:
-    hospedagens = {
-        1 : {
-        'suite' : 1, 
-        'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
-        'cpf' :  10531031403 ,
-        'status' :  'em aberto',
-        },
-        2 : {
-        'suite' : 2, 
-        'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
-        'cpf' :  10531031403 ,
-        'status' :  'em aberto',
-            },
-        }
-    arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
-    for num,dados in hospedagens.items() : 
-        if dados['status'] == 'fechado' :
-            arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
-        else :
-            arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
-    arq_hospedagens.close()
+hospedagens = recupera_hospedagens()
 
 produtos = {}
 try : 
@@ -520,8 +467,8 @@ while resp != 0 :
               print()
               print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
               print()
-              resp3 = input('🤍ྀི  digite o numero da operação : ')
-            resp3 = int(resp3)
+              num = input('🤍ྀི  digite o numero da hospedagem que deseja consultar : ')
+            num = int(num)
             if num in hospedagens :
               print()
               print('☪-☪'*25)
@@ -1031,14 +978,7 @@ print('········· FIM DO PROGRAMA ·········')
  
 salva_suites(suites)
  
-
-arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
-for num,dados in hospedagens.items() : 
-  if dados['status'] == 'fechado' :
-      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']},{dados['saida']},{dados['valor_t']}\n')
-  else :
-      arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
-arq_hospedagens.close()
+salva_hospedagens(hospedagens)
 
 arq_produtos = open('produtos.txt','wt',encoding="utf-8")
 for num, dados in produtos.items() :

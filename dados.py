@@ -60,6 +60,7 @@ def salva_suites(suites):
 
 
 def recupera_hospedagens() : 
+    hospedagens = {}
     try : 
         arq_hospedagens = open('hospedagens.txt','rt',encoding="utf-8")
         for linha in arq_hospedagens :
@@ -95,13 +96,13 @@ def recupera_hospedagens() :
         hospedagens = {
             1 : {
             'suite' : 1, 
-            'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
+            'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
             'cpf' :  10531031403 ,
             'status' :  'em aberto',
             },
             2 : {
             'suite' : 2, 
-            'entrada' : datetime.fromisoformat(2026, 6, 13, 15, 30, 42) ,
+            'entrada' : datetime(2026, 6, 13, 15, 30, 42) ,
             'cpf' :  10531031403 ,
             'status' :  'em aberto',
                 },
@@ -114,7 +115,9 @@ def recupera_hospedagens() :
                 arq_hospedagens.write(f'{num},{dados['suite']},{dados['entrada']},{dados['cpf']},{dados['status']}\n')
         arq_hospedagens.close()
 
-def salva_hospedagens():
+    return hospedagens
+
+def salva_hospedagens(hospedagens):
     arq_hospedagens = open('hospedagens.txt','wt',encoding="utf-8")
     for num,dados in hospedagens.items() : 
         if dados['status'] == 'fechado' :
