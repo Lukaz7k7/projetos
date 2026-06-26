@@ -73,16 +73,13 @@ def listagem_suites(suites):
     print()
     print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
     print()
-    print('☪-☪'*25)
+    print('☪-☪'*50)
     for chave, dados in suites.items() :
         if dados['ativo']:
             print()
-            print(f'SUÍTE NUMERO -> {chave}')
-            print(f'tipo -> {dados['tipo']}')
-            print(f'valor por hora -> R${dados['valor']}')
-            print(f'status -> {dados['status']}')
+            print(f'|||   SUITE NÚMERO  > {chave:^5} |   TTPO   >  {dados['tipo']:^10} |   VALOR POR HR   >   {dados['valor']:^10}   |  STATUS   >   R${dados['status']:^10} |||')
             print()
-            print('☪-☪'*25)
+            print('☪-☪'*50)
 
     print()
     input('tecle ENTER para continuar ....')
@@ -99,11 +96,11 @@ def pesquisa_suites(suites):
         num = input('🤍ྀི  digite o numero da suíte que deseja consultar : ')
     num = int(num)
     if num in suites and suites[num]['ativo'] :
+        print('☪-☪'*50)
         print()
-        print(f'☪ numero -> {num}')
-        print(f'☪ tipo -> {suites[num]['tipo']}')
-        print(f'☪ valor por hora -> {suites[num]['valor']}')
-        print(f'☪ status -> {suites[num]['status']}')
+        print(f'|||   SUITE NÚMERO  > {num:^5} |   TTPO   >  {suites[num]['tipo']:^10} |   VALOR POR HR   >   {suites[num]['valor']:^10}   |  STATUS   >   R${suites[num]['status']:^10} |||')
+        print()
+        print('☪-☪'*50)
         print()
         input('tecle ENTER para continuar .....')
     else :

@@ -3,6 +3,7 @@ from datetime import datetime
 from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
 from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites , exclui_suites
+from modulos.hospedagens import menu_hospedagens
 
     # recuperando dados dos arquivos
 
@@ -81,7 +82,7 @@ while resp != 0 :
           edição_suites(suites)
                 
         elif resp2 == 4 :
-          
+
           exclui_suites(suites)
 
     # módulo de hospedagem        
@@ -91,21 +92,9 @@ while resp != 0 :
       while resp2 != 0:
         os.system('cls')
         os.system('clear')
-        print()
-        print('✩₊˚.⋆☾⋆⁺₊✧ MÓDULO DE HOSPEDAGEM ✩₊˚.⋆☾⋆⁺₊✧')
-        print()
-        print('1 ࣪ ִֶָ☾.   Fazer check-in     ࣪ ִֶָ☾.')
-        print('2 ࣪ ִֶָ☾. consultar hospedagem ࣪ ִֶָ☾.')
-        print('3 ࣪ ִֶָ☾.   Fazer check-out    ࣪ ִֶָ☾.')
-        print('0 ࣪ ִֶָ☾.       voltar         ࣪ ִֶָ☾.')
-        print()
-        resp2 = input('🤍ྀི  digite o numero da operação : ')
-        while not verifica_int(resp2):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              resp2 = input('🤍ྀི  digite o numero da operação : ')
-        resp2 = int(resp2)
+
+        resp2 = menu_hospedagens()
+
         os.system('cls')
         os.system('clear')
 
