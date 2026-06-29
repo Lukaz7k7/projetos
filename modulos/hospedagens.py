@@ -17,3 +17,6 @@ def menu_hospedagens():
             resp2 = input('🤍ྀི  digite o numero da operação : ')
     resp2 = int(resp2)
     return resp2
+
+
+
