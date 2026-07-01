@@ -5,7 +5,7 @@ from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_h
 from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites , exclui_suites
 from modulos.hospedagens import menu_hospedagens
 from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_pedidos, pesquisa_pedidos, pesquisa_pedidos_hospedagem,cancelar_pedidos
-from modulos.produtos import menu_produtos
+from modulos.produtos import menu_produtos,cadastrar_produtos, consultar_produtos, listagem_produtos,pesquisa_produtos
 
     # recuperando dados dos arquivos
 
@@ -278,90 +278,27 @@ while resp != 0 :
       while resp2 != 0 :
         os.system('cls')
         os.system('clear')
-        
+
         resp2 = menu_produtos()
 
         os.system('cls')
         os.system('clear')
+
         if resp2 == 1 :
-          print()
-          print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CADASTRO DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-          print()
-          num = max(produtos.keys()) + 1
-          print(f'NUMERO DO PRODUTO -> {num}')
-          print()
-          produto = input('𓊯 digite o nome do produto para cadastrar : ')
-          estoque = input('𓊯 digite a quantidade que tem no estoque : ')
-          while not verifica_int(estoque):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              estoque = input('🤍ྀི  digite a quantidade que tem no estoque : ')
-          estoque = int(estoque)
-          valor = input('𓊯 digite o preço do produto : ')
-          while not verifica_float(valor):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              valor = input('🤍ྀི  digite o preço do produto : ')
-          valor = float(valor)
-          produtos[num] = {
-        'produto' : produto, 
-        'estoque' : estoque,
-        'valor' : valor,
-        'ativo' : True
-        }
-          print('produto cadastrado com sucesso')
-          input('tecle o ENTER para continuar.....')
+
+          cadastrar_produtos(produtos)
 
         elif resp2 == 2 :
-          print()
-          print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CONSULTA DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-          print()
-          print('1 ָ☾. listar todas')
-          print('2 ָ☾. buscar por numero')
-          print()
-          resp3 = input('🤍ྀི  digite o numero da operação : ')
-          while not verifica_int(resp3):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              resp3 = input('🤍ྀི  digite o numero da operação : ')
-          resp3 = int(resp3)
+
+          resp3 = consultar_produtos()
+
           if resp3 == 1 :
-            print()
-            print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-            print()
-            for chave, dados in produtos.items() :
-              if dados['ativo']:
-                print()
-                print('☕︎ 𓎩 ‧₊˚'*15)
-                print()
-                print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
-            print()
-            print('☕︎ 𓎩 ‧₊˚'*15)
-            print()
-            input('tecle ENTER para continuar.....')
+            
+            listagem_produtos(produtos)
           
           else :
-            print()
-            print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-            print()
-            num = input('digite o numero do produto que deseja consultar : ')
-            while not verifica_int(num):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              num = input('🤍ྀི  digite o numero do produto que deseja consultar : ')
-            num = int(num)
-            if num in produtos and produtos[num]['ativo'] :
-              print()
-              print(f'|||   PRODUTO {num:^5} |  NOME > {produtos[num]['produto']:^30}  |  PREÇO  >  R${produtos[num]['valor']:^10}  |  ESTOQUE  > {produtos[num]['estoque']:^10} |||')
-              print()
-              input('tecle ENTER para continuar.....')
-            else : 
-              print(f'produto numero {num} não encontrado')
-              input('tecle ENTER para continuar.....')
+
+            pesquisa_produtos(produtos)
 
         elif resp2 == 3 :
             print()
