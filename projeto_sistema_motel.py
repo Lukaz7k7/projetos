@@ -4,7 +4,8 @@ from verifica import verifica_cpf, verifica_int, verifica_float
 from dados import recupera_suites , salva_suites , recupera_hospedagens, salva_hospedagens, recupera_produtos , salva_produtos, recupera_pedidos, salva_pedidos
 from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites , exclui_suites
 from modulos.hospedagens import menu_hospedagens
-from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_produtos
+from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_pedidos, pesquisa_pedidos, pesquisa_pedidos_hospedagem,cancelar_pedidos
+from modulos.produtos import menu_produtos
 
     # recuperando dados dos arquivos
 
@@ -277,22 +278,9 @@ while resp != 0 :
       while resp2 != 0 :
         os.system('cls')
         os.system('clear')
-        print()
-        print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅ MÓDULO DE PRODUTOS  ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-        print()
-        print('1 𓊯   cadastrar produstos   𓊯')
-        print('2 𓊯      ver produtos       𓊯')
-        print('3 𓊯     editar produto      𓊯')
-        print('4 𓊯     excluir produto     𓊯')
-        print('0 𓊯         voltar          𓊯')
-        print()
-        resp2 = input('🤍ྀི  digite o numero da operação : ')
-        while not verifica_int(resp2):
-              print()
-              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-              print()
-              resp2 = input('🤍ྀི  digite o numero da operação : ')
-        resp2 = int(resp2)
+        
+        resp2 = menu_produtos()
+
         os.system('cls')
         os.system('clear')
         if resp2 == 1 :
@@ -475,103 +463,19 @@ while resp != 0 :
 
             if resp3 == 1 :
 
-              listagem_produtos(pedidos,hospedagens,produtos)
+              listagem_pedidos(pedidos,hospedagens,produtos)
             
             elif resp3 == 2 :
-              print()
-              print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-              print()
-              num = input('digite o numero da hospedagem que deseja consultar os pedidos : ')
-              while not verifica_int(num):
-                print()
-                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-                print()
-                num = input('🤍ྀི  digite o numero da hospedagem que deseja consultar os pedidos : ')
-              num = int(num)
-              if num not in hospedagens :
-                print()
-                print('! HOSPDAGEM NÃO ENCONTRADA !')
-                print()
-                input('tecle ENTER para continuar......')
-              else :
-                encontrou = False
-                total = 0
-                for i in range(1,len(pedidos)+1) :
-                  if pedidos[i]['hospedagem'] == num :
-                    print()
-                    print('☕︎ 𓎩 ‧₊˚'*15)
-                    print()
-                    print(f'||| PEDIDO {num:^5} |  HOSPEDAGEM > {pedidos[num]['hospedagem']:^10}  |  PRODUTO  >  R${produtos[pedidos[num]['produto']]['produto']:^10} |  QUANTIDADE  > {pedidos[num]['quantidade']:^10} |  STATUS  > {pedidos[num]['status']:^10} |||')
-                    encontrou = True
-                    total += produtos[pedidos[i]['produto']]['valor'] * pedidos[i]['quantidade']
-                print() 
-                print('☕︎ 𓎩 ‧₊˚'*15)
-                print()
-                if encontrou :
-                  print(F'TOTAL A PAGAR POR CONSUMO HOSPEGAEM NUMERO {num} : ')
-                  print(f'total -> R${total:.2f}')
-                else :
-                  print(f'nem um pedido cadastrado na hospedagem {num}')
-                input('tecle ENTER para continuar......')
+              
+              pesquisa_pedidos_hospedagem(pedidos,hospedagens,produtos)
+
             elif resp3 == 3:
-              print()
-              print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  PESQUISA DE CONSUMO ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-              print()
-              num = input('digite o numero do pedido que deseja consultar : ')
-              while not verifica_int(num):
-                print()
-                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-                print()
-                num = input('🤍ྀི  digite o numero do pedido que deseja consultar : ')
-              num = int(num)
-              if num in pedidos and pedidos[num]['ativo'] :
-                  print()
-                  print(f'pedido numero -> {num}')
-                  print()
-                  print(f'𓊯 hospedagem -> {pedidos[num]['hospedagem']}')
-                  print(f'𓊯 produto -> {produtos[pedidos[num]['produto']]['produto']}')
-                  print(f'𓊯 quantidade -> {pedidos[num]['quantidade']}')
-                  print(f'𓊯 status -> {pedidos[num]['status']}')
-                  print()  
-                  input('pres ENTER para continuar....')
-              else : 
-                print(f'pedido numero {num} não encontrado')
-                input('pres ENTER para continuar....')
+              
+              pesquisa_pedidos(pedidos,hospedagens,produtos)
 
           elif resp2 == 3 :
-            print()
-            print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CANCELAR PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
-            print()
-            num = input('digite o numero do pedido que deseja cancelar : ')
-            while not verifica_int(num):
-                print()
-                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
-                print()
-                num = input('🤍ྀི  digite o numero do pedido que deseja cancelar : ')
-            num = int(num)
-            if num in pedidos and pedidos[num]['ativo'] : 
-              if pedidos[num]['status'] == 'em aberto' :
-                  print()
-                  print(f'pedido numero -> {num}')
-                  print()
-                  print(f'𓊯 hospedagem -> {pedidos[num]['hospedagem']}')
-                  print(f'𓊯 produto -> {produtos[pedidos[num]['produto']]['produto']}')
-                  print(f'𓊯 quantidade -> {pedidos[num]['quantidade']}')
-                  print(f'𓊯 status -> {pedidos[num]['status']}')
-                  print()
-                  resp = input('deseja mesmo cancelar esse pedido ? [S/N] ')
-                  if resp in 'sS' :
-                    pedidos[num]['ativo'] = False
-                    print('pedido cancelado com suscesso')
-                    input('pres ENTER para continuar....')
-                  else :
-                    print('operação canselada')
-              else : 
-                print(f'pedido numero {num} ja foi pago')
-                input('pres ENTER para continuar....')
-            else : 
-              print(f'pedido numero {num} não encontrado')
-              input('pres ENTER para continuar....')
+            
+            cancelar_pedidos(pedidos,hospedagens,produtos)
                     
       
     # módulo de relatorio
