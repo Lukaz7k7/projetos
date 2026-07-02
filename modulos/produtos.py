@@ -101,3 +101,82 @@ def pesquisa_produtos(produtos):
     else : 
         print(f'produto numero {num} não encontrado')
         input('tecle ENTER para continuar.....')
+
+def editar_produtos(produtos):
+    print()
+    print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  EDIÇÃO DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+    print()
+    num = input('digite o numero do produto que deseja editar : ')
+    while not verifica_int(num):
+        print()
+        print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+        print()
+        num = input('🤍ྀི  digite o numero do produto que deseja consultar : ')
+    num = int(num)
+    if num in produtos and produtos[num]['ativo'] :
+            print()
+            print(f'produto numero -> {num}')
+            print()
+            print(f'1 𓊯 nome -> {produtos[num]['produto']}')
+            print(f'2 𓊯 estoque -> {produtos[num]['estoque']}')
+            print(f'3 𓊯 preço -> R$ {produtos[num]['valor']}')
+            print()
+            produto = input('𓊯 digite o novo nome do produto para cadastrar : ')
+            estoque = input('𓊯 digite a nova quantidade que tem no estoque : ')
+            while not verifica_int(estoque):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                estoque = input('🤍ྀི  digite a nova quantidade que tem no estoque : ')
+            estoque = int(estoque)
+            valor = input('𓊯 digite o novo preço do produto : ')
+            while not verifica_float(valor):
+                print()
+                print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+                print()
+                valor = input('🤍ྀི  digite o novo preço do produto : ')
+            valor = float(valor)
+            produtos[num] = {
+            'produto' : produto, 
+            'estoque' : estoque,
+            'valor' : valor,
+            'ativo' : True
+            }
+            print('produto editado com suscesso ! ')
+            input('tecle ENTER para continuar.....')
+    else : 
+            print(f'produto numero {num} não encontrado')
+            input('tecle ENTER para continuar.....')
+
+def exclui_produtos(produtos):
+            print()
+            print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  EXCLUIR PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+            print()
+            num = input('digite o numero do produto que deseja excluir : ')
+            while not verifica_int(num):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              num = input('🤍ྀི  digite o numero do produto que deseja excluir : ')
+            num = int(num)
+            if num in produtos :
+                  print()
+                  print(f'produto numero -> {num}')
+                  print()
+                  print(f' 𓊯 nome -> {produtos[num]['produto']}')
+                  print(f' 𓊯 estoque -> {produtos[num]['estoque']}')
+                  print(f' 𓊯 preço -> R$ {produtos[num]['valor']}')
+                  print()
+                  resp = input('deseja mesmo deletar esse produto ? [S/N] ')
+                  if resp in 'sS' :
+                    produtos[num]['ativo'] = False
+                    print('produto excluido com suscesso')
+                    input('pres ENTER para continuar....')
+                  else :
+                    print('operação canselada')
+                    input('pres ENTER para continuar....')
+            else : 
+              print(f'produto numero {num} não encontrado')
+              input('pres ENTER para continuar....')
+
+
