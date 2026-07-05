@@ -6,6 +6,7 @@ from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesq
 from modulos.hospedagens import menu_hospedagens,cadastrar_hospedagens,consultar_hospedagens, listagem_hospedagens, pesquisa_hospedagens, finalizar_hospedagens
 from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_pedidos, pesquisa_pedidos, pesquisa_pedidos_hospedagem,cancelar_pedidos
 from modulos.produtos import menu_produtos,cadastrar_produtos, consultar_produtos, listagem_produtos,pesquisa_produtos,editar_produtos,exclui_produtos 
+from modulos.relatorio import menu_relatorio, relatorio_suites
 
     # recuperando dados dos arquivos
 
@@ -197,18 +198,19 @@ while resp != 0 :
     # módulo de relatorio
       
     elif resp == 5 :
-      print()
-      print('-ˋˏ✄┈┈┈┈ MÓDULO DE RELATORIO -ˋˏ✄┈┈┈┈')
-      print()
-      print('1 ╰┈➤ relatorio de suites ')
-      print('2 ╰┈➤ relatorio de hospedagens  ')
-      print('3 ╰┈➤ relatorio de consumo ')
-      print('4 ╰┈➤ relatorio de pedidos ')
-      print('0 ╰┈➤ voltar ')
-      print()
-      resp2 = int(input('🤍ྀི digite o numero da operação : '))
+      resp2 = ''
+      while resp2 != 0 :
+        os.system('cls')
+        os.system('clear')
+
+        resp2 = menu_relatorio()
     
-  
+        os.system('cls')
+        os.system('clear')
+
+        if resp2 == 1 :
+          relatorio_suites(suites)
+
     # módulo de informação 
 
     elif resp == 6 :
