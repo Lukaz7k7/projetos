@@ -8,7 +8,7 @@ def menu_relatorio():
         print()
         print('1 ╰┈➤ relatorio de suites ')
         print('2 ╰┈➤ relatorio de hospedagens  ')
-        print('3 ╰┈➤ relatorio de consumo ')
+        print('3 ╰┈➤ relatorio de produtos ')
         print('4 ╰┈➤ relatorio de pedidos ')
         print('0 ╰┈➤ voltar ')
         print()
@@ -79,5 +79,57 @@ def relatorio_suites(suites):
 
 
 
-def relatorio_produtos()
+def relatorio_produtos(produtos):
+      resp3 = ''
+      while resp3 != 0 :
+        os.system('cls')
+        os.system('clear')
+        print()
+        print('-ˋˏ✄┈┈┈┈ RELATORIO  PRODUTOS -ˋˏ✄┈┈┈┈')
+        print()
+        print('1 ╰┈➤ listar todos ')
+        print('2 ╰┈➤ litar desativados  ')
+        print('3 ╰┈➤ listar faixa de preço')
+        print('0 ╰┈➤ voltar ')
+        print()
+        resp3 = input('🤍ྀི digite o numero da operação : ')
+        print()
+        while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+        resp3 = int(resp3)
+        os.system('cls')
+        os.system('clear')
+
+        if resp3 == 1:
+            print('||| NÚMERO |    PRODUTO    | ESTOQUE |   PREÇO  |||')
+
+            for chave, dados in produtos.items():
+                  print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
+
+            print()
+            input('Tecle ENTER para continuar...')
+
+        elif resp3 == 2 :
+            print('||| NÚMERO |    PRODUTO    | ESTOQUE |   PREÇO  |||')
+            for chave, dados in produtos.items():
+                  if dados['ativo'] == False:
+                        print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
+            print()
+            input('tecle ENTER para continuar.....')
+         
+        elif resp3 == 3 :
+            print('digite a faixa de preço que deseja procurar')
+            faixa_i = float(input('proço inicial : '))
+            faixa_f = float(input('ate preço final : '))
+            print()
+            print('||| NÚMERO |    PRODUTO    | ESTOQUE |   PREÇO  |||')
+            for chave, dados in produtos.items():
+                  if dados['valor'] >= faixa_i and dados['valor'] <= faixa_f:
+                        print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
+            print()
+            input('tecle ENTER para continuar.....')
+      
 

@@ -6,7 +6,7 @@ from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesq
 from modulos.hospedagens import menu_hospedagens,cadastrar_hospedagens,consultar_hospedagens, listagem_hospedagens, pesquisa_hospedagens, finalizar_hospedagens
 from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_pedidos, pesquisa_pedidos, pesquisa_pedidos_hospedagem,cancelar_pedidos
 from modulos.produtos import menu_produtos,cadastrar_produtos, consultar_produtos, listagem_produtos,pesquisa_produtos,editar_produtos,exclui_produtos 
-from modulos.relatorio import menu_relatorio, relatorio_suites
+from modulos.relatorio import menu_relatorio, relatorio_suites, relatorio_produtos
 
     # recuperando dados dos arquivos
 
@@ -210,6 +210,9 @@ while resp != 0 :
 
         if resp2 == 1 :
           relatorio_suites(suites)
+
+        if resp2 == 3 :
+          relatorio_produtos(produtos)
 
     # módulo de informação 
 
