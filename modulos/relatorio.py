@@ -90,6 +90,7 @@ def relatorio_produtos(produtos):
         print('1 ╰┈➤ listar todos ')
         print('2 ╰┈➤ litar desativados  ')
         print('3 ╰┈➤ listar faixa de preço')
+        print('4 ╰┈➤ pesquisar por nome')
         print('0 ╰┈➤ voltar ')
         print()
         resp3 = input('🤍ྀི digite o numero da operação : ')
@@ -131,5 +132,18 @@ def relatorio_produtos(produtos):
                         print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
             print()
             input('tecle ENTER para continuar.....')
-      
+
+        elif resp3 == 4 :
+            produto = input('digite o nome do produto que procura :')
+            achou = False
+            print()
+            for chave, dados in produtos.items():
+                  if dados['produto'] == produto :
+                        print('||| NÚMERO |    PRODUTO    | ESTOQUE |   PREÇO  |||')
+                        print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
+                        achou = True
+            if not achou :
+                  print('produto não encontrado')
+            print()
+            input('tecle ENTER para continuar.....')
 
