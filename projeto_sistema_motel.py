@@ -218,7 +218,7 @@ while resp != 0 :
           relatorio_produtos(produtos)
         
         if resp2 == 4 :
-          relatorio_pedidos(pedidos)
+          relatorio_pedidos(pedidos,produtos)
         
         
 

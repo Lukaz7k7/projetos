@@ -165,7 +165,7 @@ def pesquisa_pedidos(pedidos,hospedagens,produtos):
                 print(f'pedido numero {num} não encontrado')
                 input('pres ENTER para continuar....')
 
-def cancelar_pedidos(pedidos,hospedagens, produstos):
+def cancelar_pedidos(pedidos,hospedagens, produtos):
         print()
         print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  CANCELAR PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
         print()

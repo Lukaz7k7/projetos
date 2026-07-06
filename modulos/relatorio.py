@@ -215,7 +215,7 @@ def relatorio_produtos(produtos):
             print()
             input('tecle ENTER para continuar.....')
 
-def relatorio_pedidos(pedidos):
+def relatorio_pedidos(pedidos,produtos):
       resp3 = ''
       while resp3 != 0 :
         os.system('cls')
@@ -244,8 +244,17 @@ def relatorio_pedidos(pedidos):
             print('||| NÚMERO | HOSPEDAGEM |    PRODUTO     | QUANTIDADE |   STATUS   |||')
 
             for chave, dados in pedidos.items():
-                  print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{dados['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+                  print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
 
             print()
             input('Tecle ENTER para continuar...')
 
+        elif resp3 == 2:
+            print('||| NÚMERO | HOSPEDAGEM |    PRODUTO     | QUANTIDADE |   STATUS   |||')
+
+            for chave, dados in pedidos.items():
+                  if dados['ativo'] == False:
+                        print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+
+            print()
+            input('Tecle ENTER para continuar...')
