@@ -241,4 +241,11 @@ def relatorio_pedidos(pedidos):
         os.system('clear')
 
         if resp3 == 1:
+            print('||| NÚMERO | HOSPEDAGEM |    PRODUTO     | QUANTIDADE |   STATUS   |||')
+
+            for chave, dados in pedidos.items():
+                  print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{dados['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+
+            print()
+            input('Tecle ENTER para continuar...')
 
