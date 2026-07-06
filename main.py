@@ -144,6 +144,7 @@ while resp != 0 :
         if resp2 == 1 :
 
           cadastrar_produtos(produtos)
+          salva_produtos(produtos)
 
         elif resp2 == 2 :
 
@@ -160,9 +161,11 @@ while resp != 0 :
         elif resp2 == 3 :
 
             editar_produtos(produtos)
+            salva_produtos(produtos)
 
         elif resp2 == 4 :
             exclui_produtos(produtos)
+            salva_produtos(produtos)
 
     #módulo de pedidos         
         
