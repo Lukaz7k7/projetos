@@ -5,7 +5,7 @@ from armazenamento import recupera_suites , salva_suites , recupera_hospedagens,
 from modulos.suites import listagem_suites, cadastrar_suites , menu_suites, pesquisa_suites, consulta_suites , edição_suites , exclui_suites
 from modulos.hospedagens import menu_hospedagens,cadastrar_hospedagens,consultar_hospedagens, listagem_hospedagens, pesquisa_hospedagens, finalizar_hospedagens
 from modulos.pedidos import menu_pedidos, cadastrar_pedidos, consultar_pedidos, listagem_pedidos, pesquisa_pedidos, pesquisa_pedidos_hospedagem,cancelar_pedidos
-from modulos.produtos import menu_produtos,cadastrar_produtos, consultar_produtos, listagem_produtos,pesquisa_produtos,editar_produtos,exclui_produtos 
+from modulos.produtos import menu_produtos,cadastrar_produtos, consultar_produtos, listagem_produtos,pesquisa_produtos,editar_produtos,exclui_produtos,atualizar_estoque 
 from modulos.relatorio import menu_relatorio, relatorio_suites, relatorio_produtos, relatorio_hospedagens, relatorio_pedidos
 
     # recuperando dados dos arquivos
@@ -108,6 +108,7 @@ while resp != 0 :
           
           cadastrar_hospedagens(hospedagens,suites)
           salva_hospedagens(hospedagens)
+          salva_suites(suites)
 
 
         elif resp2 == 2 :
@@ -126,6 +127,8 @@ while resp != 0 :
 
           finalizar_hospedagens(hospedagens,suites,pedidos,produtos)
           salva_hospedagens(hospedagens)
+          salva_suites(suites)
+          salva_pedidos(pedidos)
 
 
     # módulo de produtos         
@@ -167,6 +170,10 @@ while resp != 0 :
             exclui_produtos(produtos)
             salva_produtos(produtos)
 
+        elif resp2 == 5 :
+            atualizar_estoque(produtos)
+            salva_produtos(produtos)
+
     #módulo de pedidos         
         
     elif resp == 4 : 
@@ -184,6 +191,7 @@ while resp != 0 :
 
             cadastrar_pedidos(pedidos,hospedagens,produtos)
             salva_pedidos(pedidos)
+            salva_produtos(produtos)
         
           elif resp2 == 2 :
             

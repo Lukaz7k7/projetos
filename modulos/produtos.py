@@ -9,6 +9,7 @@ def menu_produtos():
         print('2 𓊯      ver produtos       𓊯')
         print('3 𓊯     editar produto      𓊯')
         print('4 𓊯     excluir produto     𓊯')
+        print('5 𓊯    atualizar estoque    𓊯')
         print('0 𓊯         voltar          𓊯')
         print()
         resp2 = input('🤍ྀི  digite o numero da operação : ')
@@ -146,6 +147,35 @@ def editar_produtos(produtos):
     else : 
             print(f'produto numero {num} não encontrado')
             input('tecle ENTER para continuar.....')
+
+def atualizar_estoque(produtos):
+    print()
+    print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  ATUALIZAÇÃO DE ESTOQUE  ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
+    print()
+    num = input('digite o numero do produto que deseja atualizar o estoque : ')
+    while not verifica_int(num):
+        print()
+        print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+        print()
+        num = input('🤍ྀི  digite o numero do produto que deseja consultar : ')
+    num = int(num)
+    if num in produtos and produtos[num]['ativo'] :
+            print()
+            print(f'produto numero -> {num}')
+            print()
+            print(f'1 𓊯 nome -> {produtos[num]['produto']}')
+            print(f'2 𓊯 estoque -> {produtos[num]['estoque']}')
+            print(f'3 𓊯 preço -> R$ {produtos[num]['valor']}')
+            print()
+    else : 
+            print(f'produto numero {num} não encontrado')
+            input('tecle ENTER para continuar.....')
+            
+    estoque = int(input('digite a nova quantidade do estoque : '))
+    produtos[num]['estoque'] = estoque
+    print()
+    print('estoque atualizado com suscesso !')
+    input('tecle ENTER para continuarl....')
 
 def exclui_produtos(produtos):
             print()

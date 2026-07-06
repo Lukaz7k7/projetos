@@ -1,6 +1,6 @@
-1,1,2,1,em aberto,True
-2,1,1,4,em aberto,False
+1,1,2,1,fechado,True
+2,1,1,4,fechado,True
 3,2,1,4,em aberto,True
 4,2,1,4,em aberto,True
 5,2,1,4,em aberto,True
-6,3,2,2,em aberto,True
+6,2,4,5,em aberto,True
