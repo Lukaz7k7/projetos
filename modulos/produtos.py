@@ -71,12 +71,11 @@ def listagem_produtos(produtos):
     print()
     print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PRODUTOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
     print()
-    for chave, dados in produtos.items() :
+    print('☕︎ 𓎩 ‧₊˚'*15)
+    print()
+    for chave, dados in produtos.items():
         if dados['ativo']:
-            print()
-            print('☕︎ 𓎩 ‧₊˚'*15)
-            print()
-            print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
+                  print(f"|||{chave:^8}|{dados['produto']:^15}|{dados['estoque']:^9}|{dados['valor']:^10}|||")
     print()
     print('☕︎ 𓎩 ‧₊˚'*15)
     print()

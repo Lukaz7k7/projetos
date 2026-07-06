@@ -95,11 +95,13 @@ def listagem_pedidos(pedidos,hospedagens,produtos):
         print()
         print('‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅  LISTAGEM DE PEDIDOS ‧₊˚ ⋅ ☕︎ 𓎩 ‧₊˚ ⋅')
         print()
-        for chave, dados in pedidos.items() :
-                if dados['ativo'] :
-                        print()
-                        print(f'||| PEDIDO {chave:^5} |  HOSPEDAGEM > {dados['hospedagem']:^10}  |  PRODUTO  >  R${produtos[dados['produto']]['produto']:^10} |  QUANTIDADE  > {dados['quantidade']:^10} |  STATUS  > {dados['status']:^10} |||')
+        print('☕︎ 𓎩 ‧₊˚'*15)
         print()
+        for chave, dados in pedidos.items():
+                if dados['ativo'] :
+                  print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+        print()
+        print('☕︎ 𓎩 ‧₊˚'*15)
         print()
         input('tecle ENTER para continuar.....')
 
