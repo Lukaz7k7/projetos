@@ -74,13 +74,13 @@ def listagem_suites(suites):
     print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE SUÍTES ✩₊˚.⋆☾⋆⁺₊✧')
     print()
     print('☪-☪'*50)
-    for chave, dados in suites.items() :
+    print()
+    print('||| NÚMERO |   TIPO   |  PREÇO   |  STATUS  |||')
+    for chave, dados in suites.items():
         if dados['ativo']:
-            print()
-            print(f'|||   SUITE NÚMERO  > {chave:^5} |   TTPO   >  {dados['tipo']:^10} |   VALOR POR HR   >   {dados['valor']:^10}   |  STATUS   >   R${dados['status']:^10} |||')
-            print()
-            print('☪-☪'*50)
-
+            print(f"|||{chave:^8}|{dados['tipo']:^10}|{dados['valor']:^10}|{dados['status']:^10}|||")
+    print()
+    print('☪-☪'*50)        
     print()
     input('tecle ENTER para continuar ....')
 

@@ -128,9 +128,11 @@ def pesquisa_hospedagens(hospedagens):
               print()
               print('☪-☪'*60)
               print()
-              print(f'||| HOSPEDAGEM NÚMERO  > {num:^5} |   SUITE   >  {hospedagens[num]['suite']:^10} |  ENTRADA   >  {hospedagens[num]['entrada']} | CPF  >   {hospedagens[num]['cpf']:^10} | | STATUS   >   {hospedagens[num]['status']:^10} |')
+              print('||| NÚMERO |  SUÍTE   |  ENTRADA   |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+              if hospedagens[num]['status'] != 'fechado' :
+                print(f"|||{num:^8}|{hospedagens[num]['suite']:^10}|{hospedagens[num]['entrada'].strftime('%d/%m/%Y'):^12}|{hospedagens[num]['cpf']:^14}|{hospedagens[num]['status']:^12}|||")
               if hospedagens[num]['status'] == 'fechado' :
-                print(f'|   SAIDA   >  {hospedagens[num]['saida']} |  VALOR TOTAL   >   R${hospedagens[num]['valor_t']:.2f} |||')
+                print(f"|||{num:^8}|{hospedagens[num]['suite']:^10}|{hospedagens[num]['entrada'].strftime('%d/%m/%Y'):^12}|{hospedagens[num]['cpf']:^14}|{hospedagens[num]['status']:^12}|{hospedagens[num]['saida'].strftime('%d/%m/%Y'):^12}|{hospedagens[num]['valor_t']:^12.2f}|||")
               print()
               print('☪-☪'*60)
               print()
