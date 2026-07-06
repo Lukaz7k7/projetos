@@ -183,6 +183,7 @@ while resp != 0 :
           if resp2 == 1 :
 
             cadastrar_pedidos(pedidos,hospedagens,produtos)
+            salva_pedidos(pedidos)
         
           elif resp2 == 2 :
             
@@ -203,6 +204,7 @@ while resp != 0 :
           elif resp2 == 3 :
             
             cancelar_pedidos(pedidos,hospedagens,produtos)
+            salva_pedidos(pedidos)
                     
       
     # módulo de relatorio

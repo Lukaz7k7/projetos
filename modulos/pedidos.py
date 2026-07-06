@@ -37,8 +37,9 @@ def cadastrar_pedidos(pedidos,hospedagens,produtos):
                 hospedagem = int(input('𓊯 digite o numero da hospedagem : '))
                 print()
         for chave, dados in produtos.items():
-                print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
-                print()
+                if dados['ativo'] == True :
+                        print(f'|||   PRODUTO {chave:^5} |  NOME > {dados['produto']:^30}  |  PREÇO  >  R${dados['valor']:^10}  |  ESTOQUE  > {dados['estoque']:^10} |||')
+                        print()
         produto = input('𓊯 digite o numero do produto : ')
         while not verifica_int(produto):
                 print()
