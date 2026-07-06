@@ -258,3 +258,29 @@ def relatorio_pedidos(pedidos,produtos):
 
             print()
             input('Tecle ENTER para continuar...')
+
+        elif resp3 == 3:
+            opcao = int(input('mostrar todos os pedidos [ 1 - EM ABERTO | 2 - FECHADO ] \n sua opção : '))
+            print('||| NÚMERO | HOSPEDAGEM |    PRODUTO     | QUANTIDADE |   STATUS   |||')
+
+            for chave, dados in pedidos.items():
+                  if opcao == 1 :
+                        if dados['status'] ==  'em aberto':
+                              print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+                  elif opcao == 2 :
+                        if dados['status'] ==  'fechado':
+                              print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+            print()
+            input('Tecle ENTER para continuar...')
+
+        elif resp3 == 4 :
+            print('digite a faixa de preço que deseja procurar')
+            faixa_i = float(input('proço inicial : '))
+            faixa_f = float(input('ate preço final : '))
+            print()
+            print('||| NÚMERO | HOSPEDAGEM |    PRODUTO     | QUANTIDADE |   STATUS   |||')
+            for chave, dados in pedidos.items():
+                  if produtos[dados['produto']]['valor'] >= faixa_i and produtos[dados['produto']]['valor'] <= faixa_f:
+                        print(f"|||{chave:^8}|{dados['hospedagem']:^12}|{produtos[dados['produto']]['produto']:^16}|{dados['quantidade']:^12}|{dados['status']:^12}|||")
+            print()
+            input('tecle ENTER para continuar.....')
