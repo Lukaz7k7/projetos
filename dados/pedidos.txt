@@ -1,5 +1,0 @@
-1,1,2,1,em aberto,True
-2,1,1,4,em aberto,True
-3,2,1,4,em aberto,True
-4,2,1,4,em aberto,True
-5,2,1,4,em aberto,True
