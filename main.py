@@ -67,6 +67,7 @@ while resp != 0 :
         if resp2 == 1 :
 
           cadastrar_suites(suites)
+          salva_suites(suites)
 
         elif resp2 == 2 :
           
@@ -83,10 +84,12 @@ while resp != 0 :
         elif resp2 == 3  :
 
           edição_suites(suites)
+          salva_suites(suites)
                 
         elif resp2 == 4 :
 
           exclui_suites(suites)
+          salva_suites(suites)
 
     # módulo de hospedagem        
 
