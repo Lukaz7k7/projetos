@@ -102,7 +102,7 @@ def relatorio_hospedagens(hospedagens):
         os.system('clear')
 
         if resp3 == 1:
-            print('||| NÚMERO |  SUÍTE   |  ENTRADA  |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA   |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
 
             for chave, dados in hospedagens.items():
                   if dados['status'] == 'fechado':
@@ -131,7 +131,7 @@ def relatorio_hospedagens(hospedagens):
             print('informe a faixa de tempo que deseja consultar as hospedagens ')
             faixa_i = int(input('informe o mes inicial : '))
             faixa_f = int(input('informe o mes final : '))
-            print('||| NÚMERO |  SUÍTE   |  ENTRADA  |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA   |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
 
             for chave, dados in hospedagens.items():
                   if dados['entrada'].month >= faixa_i and dados['entrada'].month <= faixa_f :

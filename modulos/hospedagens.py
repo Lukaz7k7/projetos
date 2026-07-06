@@ -99,16 +99,17 @@ def listagem_hospedagens(hospedagens):
             print()
             print('✩₊˚.⋆☾⋆⁺₊✧ LISTAGEM DE HOSPEDAGEM ✩₊˚.⋆☾⋆⁺₊✧')
             print()
-            for chave, dados in hospedagens.items():
-              print()
-              print('☪-☪'*65)
-              print()
-              print(f'||| HOSPEDAGEM NÚMERO  > {chave:^5} |   SUITE   >  {dados['suite']:^10} |  ENTRADA   >  {dados['entrada']} | CPF  >   {dados['cpf']:^10} | | STATUS   >   {dados['status']:^10} |')
-              if dados['status'] == 'fechado' :
-                print(f'|   SAIDA   >  {dados['saida']} |  VALOR TOTAL   >   R${dados['valor_t']:.2f} |||')
-                print()
+            print('☪-☪'*40)
             print()
-            print('☪-☪'*65)
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA   |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+            for chave, dados in hospedagens.items():
+                  if dados['status'] == 'fechado':
+                        print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|{dados['saida'].strftime('%d/%m/%Y'):^12}|{dados['valor_t']:^12.2f}|||")
+                  else : 
+                        print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|||")
+            
+            print()
+            print('☪-☪'*40)
             print()
             input('tecle ENTER para continuar ....')
 
