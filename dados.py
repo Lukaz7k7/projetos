@@ -182,7 +182,7 @@ def salva_produtos(produtos) :
     arq_produtos.close()
 
 
-def recupera_pedidos() : 
+def recupera_pedidos() :  
     pedidos = {}
     try : 
         arq_pedidos = open('pedidos.txt','rt', encoding="utf-8")

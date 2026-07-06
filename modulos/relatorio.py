@@ -77,7 +77,75 @@ def relatorio_suites(suites):
             print()
             input('tecle ENTER para continuar.....')
 
+def relatorio_hospedagens(hospedagens):
+      resp3 = ''
+      while resp3 != 0 :
+        os.system('cls')
+        os.system('clear')
+        print()
+        print('-ˋˏ✄┈┈┈┈ RELATORIO HOSPEDAGENS -ˋˏ✄┈┈┈┈')
+        print()
+        print('1 ╰┈➤ listar todas ')
+        print('2 ╰┈➤ listar todas em aberto ou fechadas')
+        print('3 ╰┈➤ listar todas em uma faixa de meses')
+        print('0 ╰┈➤ voltar ')
+        print()
+        resp3 = input('🤍ྀི digite o numero da operação : ')
+        print()
+        while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+        resp3 = int(resp3)
+        os.system('cls')
+        os.system('clear')
 
+        if resp3 == 1:
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA  |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+
+            for chave, dados in hospedagens.items():
+                  if dados['status'] == 'fechado':
+                        print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|{dados['saida'].strftime('%d/%m/%Y'):^12}|{dados['valor_t']:^12.2f}|||")
+                  else : 
+                        print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|||")
+            print()
+            input('Tecle ENTER para continuar...')
+
+        elif resp3 == 2 :
+            opcao = int(input('mostrar todas as hospedagens [ 1 - EM ABERTO | 2 - FECHADO ] \n sua opção : '))
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA   |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+
+            for chave, dados in hospedagens.items():
+                  if opcao == 2 :
+                        if dados['status'] == 'fechado':
+                              print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|{dados['saida'].strftime('%d/%m/%Y'):^12}|{dados['valor_t']:^12.2f}|||")
+                  if opcao == 1 : 
+                        if dados['status'] != 'fechado':
+                              print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|||")
+            print()
+            input('Tecle ENTER para continuar...')
+
+        elif resp3 == 3 :
+            achou = False 
+            print('informe a faixa de tempo que deseja consultar as hospedagens ')
+            faixa_i = int(input('informe o mes inicial : '))
+            faixa_f = int(input('informe o mes final : '))
+            print('||| NÚMERO |  SUÍTE   |  ENTRADA  |     CPF      |   STATUS   |   SAÍDA    |   VALOR    |||')
+
+            for chave, dados in hospedagens.items():
+                  if dados['entrada'].month >= faixa_i and dados['entrada'].month <= faixa_f :
+
+                        achou = True
+                        if dados['status'] == 'fechado':
+                              print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|{dados['saida'].strftime('%d/%m/%Y'):^12}|{dados['valor_t']:^12.2f}|||")
+                        else : 
+                              print(f"|||{chave:^8}|{dados['suite']:^10}|{dados['entrada'].strftime('%d/%m/%Y'):^12}|{dados['cpf']:^14}|{dados['status']:^12}|||")
+            if not achou :
+                  print('nem uma hospedagem foi encontrada nessa faixa de tempo !')     
+                  print()             
+            print()
+            input('Tecle ENTER para continuar...')
 
 def relatorio_produtos(produtos):
       resp3 = ''
@@ -146,4 +214,31 @@ def relatorio_produtos(produtos):
                   print('produto não encontrado')
             print()
             input('tecle ENTER para continuar.....')
+
+def relatorio_pedidos(pedidos):
+      resp3 = ''
+      while resp3 != 0 :
+        os.system('cls')
+        os.system('clear')
+        print()
+        print('-ˋˏ✄┈┈┈┈ RELATORIO  PEDIDOS -ˋˏ✄┈┈┈┈')
+        print()
+        print('1 ╰┈➤ listar todos ')
+        print('2 ╰┈➤ litar desativados  ')
+        print('3 ╰┈➤ listar em aberto ou fechados')
+        print('4 ╰┈➤ listar faixa de preço')
+        print('0 ╰┈➤ voltar ')
+        print()
+        resp3 = input('🤍ྀི digite o numero da operação : ')
+        print()
+        while not verifica_int(resp3):
+              print()
+              print('! RESPOSTA INVALIDA, DIGITE UMA RESPOSTA VALIDA !')
+              print()
+              resp3 = input('🤍ྀི  digite o numero da operação : ')
+        resp3 = int(resp3)
+        os.system('cls')
+        os.system('clear')
+
+        if resp3 == 1:
 
